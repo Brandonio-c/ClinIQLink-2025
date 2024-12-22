@@ -8,29 +8,60 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            margin: 20px;
+            margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: #ffffff;
+            color: #212121;
+            box-sizing: border-box;
         }
         header {
-            background-color: #4CAF50;
+            background-color: #0071bc;
             color: white;
-            padding: 10px 0;
+            padding: 15px;
             text-align: center;
         }
+        main {
+            padding: 10px;
+        }
         h1, h2, h3 {
-            color: #4CAF50;
+            color: #0071bc;
         }
         section {
             margin-bottom: 20px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: #ffffff;
+            border: 1px solid #aeb0b5;
         }
         a {
-            color: #4CAF50;
+            color: #0071bc;
             text-decoration: none;
         }
         a:hover {
             text-decoration: underline;
+        }
+        footer {
+            background-color: #112e51;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+            header, footer {
+                padding: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -39,58 +70,58 @@
         <h1>LLM Lie Detector Test</h1>
         <p>Evaluating Internal Model Knowledge Retrieval</p>
     </header>
+    <main>
+        <section>
+            <h2>Task Overview</h2>
+            <p>The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will submit models, and the task organizers will provide a benchmarking framework designed to assess these models’ ability to respond to medical domain-specific queries with factual accuracy. Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information.</p>
+        </section>
 
-    <section>
-        <h2>Task Overview</h2>
-        <p>The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will submit models, and the task organizers will provide a benchmarking framework designed to assess these models’ ability to respond to medical domain-specific queries with factual accuracy. Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information.</p>
-    </section>
+        <section>
+            <h2>Datasets</h2>
+            <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, specifically curated to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics.</p>
+            <ul>
+                <li><strong>Example:</strong> <em>"What is a Laparoscopy?"</em> Answer: <em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></li>
+                <li><strong>Example:</strong> <em>"Antibiotics can treat viral infections."</em> Answer: <em>"False."</em></li>
+                <li><strong>Example:</strong> <em>"List the four chambers of the human heart."</em> Answer: <em>"Right atrium, right ventricle, left atrium, left ventricle."</em></li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Datasets</h2>
-        <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, specifically curated to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics.</p>
-        <ul>
-            <li><strong>Example:</strong> <em>"What is a Laparoscopy?"</em> Answer: <em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></li>
-            <li><strong>Example:</strong> <em>"Antibiotics can treat viral infections."</em> Answer: <em>"False."</em></li>
-            <li><strong>Example:</strong> <em>"List the four chambers of the human heart."</em> Answer: <em>"Right atrium, right ventricle, left atrium, left ventricle."</em></li>
-        </ul>
-    </section>
+        <section>
+            <h2>Evaluation Metrics</h2>
+            <p>Exact Match (Full Points): Full points will be awarded for exact matches to the known ground truth. Partial or semantically similar answers may earn partial points, while factually incorrect answers will receive negative points.</p>
+        </section>
 
-    <section>
-        <h2>Evaluation Metrics</h2>
-        <p>Exact Match (Full Points): Full points will be awarded for exact matches to the known ground truth. Partial or semantically similar answers may earn partial points, while factually incorrect answers will receive negative points.</p>
-    </section>
+        <section>
+            <h2>Rules and Participation Requirements</h2>
+            <ul>
+                <li>Submissions must include the model, methodology, and configurations.</li>
+                <li>Transparency is required, including documentation of training data and fine-tuning methods.</li>
+                <li>Use of test set information for training is strictly prohibited.</li>
+            </ul>
+        </section>
 
-    <section>
-        <h2>Rules and Participation Requirements</h2>
-        <ul>
-            <li>Submissions must include the model, methodology, and configurations.</li>
-            <li>Transparency is required, including documentation of training data and fine-tuning methods.</li>
-            <li>Use of test set information for training is strictly prohibited.</li>
-        </ul>
-    </section>
+        <section>
+            <h2>Timeline</h2>
+            <p>2025 Timeline:</p>
+            <ul>
+                <li>First call for participation: February 3rd</li>
+                <li>Release of training and validation datasets: February 4th</li>
+                <li>System submission deadline: May 14th</li>
+                <li>BioNLP Workshop Date: August 15th</li>
+            </ul>
+            <p>This shared task will be part of the <a href="https://aclweb.org/aclwiki/BioNLP_Workshop">BioNLP 2025 Workshop</a>, co-located with <a href="https://2025.aclweb.org/">ACL 2025</a> in Austria.</p>
+        </section>
 
-    <section>
-        <h2>Timeline</h2>
-        <p>2025 Timeline:</p>
-        <ul>
-            <li>First call for participation: February 3rd</li>
-            <li>Release of training and validation datasets: February 4th</li>
-            <li>System submission deadline: May 14th</li>
-            <li>BioNLP Workshop Date: August 15th</li>
-        </ul>
-        <p>This shared task will be part of the <a href="https://aclweb.org/aclwiki/BioNLP_Workshop">BioNLP 2025 Workshop</a>, co-located with <a href="https://2025.aclweb.org/">ACL 2025</a> in Austria.</p>
-    </section>
-
-    <section>
-        <h2>Research Directions</h2>
-        <p>See the following survey papers for ideas on research directions:</p>
-        <ul>
-            <li><a href="https://arxiv.org/abs/2309.01219">Siren's Song in the AI Ocean: A Survey on Hallucination in Large Language Models</a></li>
-            <li><a href="https://dl.acm.org/doi/full/10.1145/3571730">Survey of Hallucination in Natural Language Generation</a></li>
-            <li><a href="https://arxiv.org/abs/2311.05232">A Survey on Hallucination in Large Language Models</a></li>
-        </ul>
-    </section>
-
+        <section>
+            <h2>Research Directions</h2>
+            <p>See the following survey papers for ideas on research directions:</p>
+            <ul>
+                <li><a href="https://arxiv.org/abs/2309.01219">Siren's Song in the AI Ocean: A Survey on Hallucination in Large Language Models</a></li>
+                <li><a href="https://dl.acm.org/doi/full/10.1145/3571730">Survey of Hallucination in Natural Language Generation</a></li>
+                <li><a href="https://arxiv.org/abs/2311.05232">A Survey on Hallucination in Large Language Models</a></li>
+            </ul>
+        </section>
+    </main>
     <footer>
         <p>&copy; 2025 LLM Lie Detector Task. All rights reserved.</p>
     </footer>
