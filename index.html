@@ -126,7 +126,73 @@
 
         <section>
             <h2>Evaluation Metrics</h2>
-            <p>Exact Match (Full Points): Full points will be awarded for exact matches to the known ground truth. Partial or semantically similar answers may earn partial points, while factually incorrect answers will receive negative points.</p>
+            <ol>
+                <li>
+                    <strong>Exact Match (Full Points):</strong>
+                    <ul>
+                        <li><strong>Definition:</strong> Full points will be awarded if the model provides an exact match to the known ground truth answer.</li>
+                        <li><strong>Example:</strong>
+                            <ul>
+                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                <li><strong>Model Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                <li><strong>Scoring:</strong> If the model returns exactly this answer, full points are awarded.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Semantic Match (Full Points):</strong>
+                    <ul>
+                        <li><strong>Definition:</strong> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms).</li>
+                        <li><strong>Example:</strong>
+                            <ul>
+                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                <li><strong>Model Answer:</strong> "A minimally invasive surgery with a camera."</li>
+                                <li><strong>Scoring:</strong> If the model provides an equivalent meaning with different wording, it will receive full points.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Partial Semantic Similarity (Partial Points):</strong>
+                    <ul>
+                        <li><strong>Definition:</strong> Partial points will be awarded if the model provides an answer that is semantically similar but not completely accurate or misses key details.</li>
+                        <li><strong>Example:</strong>
+                            <ul>
+                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                <li><strong>Model Answer:</strong> "A procedure using a camera."</li>
+                                <li><strong>Scoring:</strong> Since the model missed the aspect of "minimally invasive," partial points will be awarded for providing a partially correct answer.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Factually Inaccurate Answers (Negative Points):</strong>
+                    <ul>
+                        <li><strong>Definition:</strong> Models that return incorrect answers will receive negative points. This applies if the model introduces false facts or hallucinated information.</li>
+                        <li><strong>Example:</strong>
+                            <ul>
+                                <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
+                                <li><strong>Expected Answer:</strong> "False"</li>
+                                <li><strong>Model Answer:</strong> "True"</li>
+                                <li><strong>Scoring:</strong> This factually incorrect response will receive negative points.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Rules and Participation Requirements</h2>
+            <ul>
+                <li>Submissions must include the model, methodology, and configurations.</li>
+                <li>Transparency is required, including documentation of training data and fine-tuning methods.</li>
+                <li>Use of test set information for training is strictly prohibited.</li>
+            </ul>
         </section>
 
         <section>
