@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LLM Lie Detector Task</title>
+    <title>ClinIQLink 2025 - LLM Lie Detector Test</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,7 +23,10 @@
         main {
             padding: 10px;
         }
-        h1, h2, h3 {
+        h1 {
+            color: white;
+        }
+        h2, h3 {
             color: #0071bc;
         }
         section {
@@ -67,13 +70,17 @@
 </head>
 <body>
     <header>
-        <h1>LLM Lie Detector Test</h1>
-        <p>Evaluating Internal Model Knowledge Retrieval</p>
+        <h1>ClinIQLink 2025 - LLM Lie Detector Test</h1>
+        <p>Evaluating Internal Model Knowledge Retrieval and Hallucinations</p>
     </header>
     <main>
         <section>
             <h2>Task Overview</h2>
-            <p>The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will submit models, and the task organizers will provide a benchmarking framework designed to assess these models’ ability to respond to medical domain-specific queries with factual accuracy. Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information.</p>
+            <p>
+                The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will submit models, and the task organizers will provide a benchmarking framework designed to assess these models’ ability to respond to medical domain-specific queries with factual accuracy. Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information.
+                The benchmarking framework will pose well-defined, atomic questions to the models, requiring a single, precise response. These questions will assess the model's knowledge about fundamental medical concepts and its ability to avoid common pitfalls like hallucination or factual inaccuracies. Scoring will be based on the precision of the answers and will involve partial, full, or negative points based on accuracy. Full points will be awarded for exact or semantically equivalent answers, while incorrect answers or repeated factual errors on the same concept will result in negative scores.
+                This task focuses purely on fact retrieval and does not assess reasoning abilities like commonsense reasoning, temporal understanding, or logical consistency.
+            </p>
         </section>
 
         <section>
