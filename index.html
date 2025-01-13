@@ -216,7 +216,7 @@
                             <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
                             <li><strong>Expected Answer:</strong> "False"</li>
                             <li><strong>Model Answer:</strong> "True"</li>
-                            <li><strong>Result:</strong> TP = 0, FP = 1, FN = 1</li>
+                            <li><strong>Result:</strong> TP = 0, FP = 0, FN = 1</li>
                         </ul>
                     </div>
 
@@ -230,9 +230,18 @@
                         <p><strong>Example:</strong></p>
                         <ul>
                             <li><strong>Question:</strong> "List the four chambers of the human heart."</li>
-                            <li><strong>Expected Answer:</strong> "Right atrium, right ventricle, left atrium, left ventricle."</li>
-                            <li><strong>Model Answer:</strong> "Right atrium, right ventricle, left atrium."</li>
-                            <li><strong>Result:</strong> TP = 3, FP = 0, FN = 1</li>
+                            <li><strong>Options:</strong></li>
+                            <ul>
+                                <li>A. right atrium</li>
+                                <li>B. top atrium</li>
+                                <li>C. right ventricle</li>
+                                <li>D. bottom ventricle</li>
+                                <li>E. left atrium</li>
+                                <li>F. left ventricle</li>
+                            </ul>
+                            <li><strong>Expected Answer:</strong> "A. right atrium, C. right ventricle, E. left atrium, F.left ventricle."</li>
+                            <li><strong>Model Answer:</strong> "A. Right atrium, B. top atrium, C. right ventricle, E. left atrium."</li>
+                            <li><strong>Result:</strong> TP = 3, FP = 1, FN = 1</li>
                         </ul>
                     </div>
 
@@ -255,7 +264,7 @@
                             </ul>
                             <li><strong>Expected Answer:</strong> "D. High fever"</li>
                             <li><strong>Model Answer:</strong> "B. Frequent urination"</li>
-                            <li><strong>Result:</strong> TP = 0, FP = 1, FN = 1</li>
+                            <li><strong>Result:</strong> TP = 0, FP = 1, FN = 0</li>
                         </ul>
                     </div>
 
