@@ -274,66 +274,130 @@
         
                 <br>
         
+                <div class="collapsible">Open-ended questions<span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p>
+                        Open-ended questions scoring is divided into three key levels of semantic similarity:
+                    </p>
+
+                </div>
+
+                <div class="collapsible">Exact Match (Full Points)<span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <ul>
+                            <li><strong>Definition:</strong> Full points will be awarded if the model provides an exact match to the known ground truth answer.</li>
+                            <li><strong>Example:</strong>
+                                <ul>
+                                    <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                    <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                    <li><strong>Model Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                    <li><strong>Scoring:</strong> If the model returns exactly this answer, full points are awarded.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                <br>
+
+                <div class="collapsible">Full to Partial Semantic Match (Full to Partial Points)<span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <ul>
+                            <li><strong>Definition:</strong> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms).</li>
+                            
+                            <li><strong>Scoring for Semantic Answer Matching:</strong>
+                                <p>
+                                    The semantic similarity score combines word-level, sentence-level, and paragraph-level similarity. Each similarity level is calculated using embeddings and cosine similarity, and the final score is computed as a weighted sum of these individual scores:
+                                </p>
+                                <div style="background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd;">
+                                    \[
+                                    \text{Semantic Match Score} = w_{word} \cdot \text{BERTScore}_{word} + w_{sentence} \cdot \text{CosineSim}_{sentence} + w_{paragraph} \cdot \text{CosineSim}_{paragraph}
+                                    \]
+                                    Where:
+                                    <ul>
+                                        <li>
+                                            \(w_{word}, w_{sentence}, w_{paragraph}\) are weights that sum to 1.
+                                        </li>
+                                        <li>
+                                            \(\text{BERTScore}_{word}\): Mean pooling of word embeddings obtained from the model output using:
+                                            \[
+                                            E_{\text{sentence}} = \frac{\sum_{i=1}^{T} E_{\text{token}_i} \cdot \text{Mask}_i}{\sum_{i=1}^{T} \text{Mask}_i}
+                                            \]
+                                            Where:
+                                            <ul>
+                                                <li>\(E_{\text{token}_i}\) is the embedding for the \(i\)-th token.</li>
+                                                <li>\(\text{Mask}_i\) is the attention mask for the \(i\)-th token to exclude padding tokens.</li>
+                                                <li>\(T\) is the total number of tokens.</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            \(\text{CosineSim}_{sentence}\): Cosine similarity between corresponding sentence embeddings \(E_x\) and \(E_y\), calculated as:
+                                            \[
+                                            \text{CosineSimilarity}(E_x, E_y) = \frac{E_x \cdot E_y}{\|E_x\| \|E_y\|}
+                                            \]
+                                            Where:
+                                            <ul>
+                                                <li>\(E_x \cdot E_y\) is the dot product of the embeddings.</li>
+                                                <li>\(\|E_x\|\) and \(\|E_y\|\) are the magnitudes of the embeddings.</li>
+                                            </ul>
+                                            <p>Once cosine similarity is computed for each corresponding sentence pair in the generated and reference answers, the aggregated sentence-level similarity is obtained by averaging all pairwise similarities:</p>
+                                            \[
+                                            \text{CosineSim}_{\text{sentence}} = \frac{1}{N} \sum_{i=1}^{N} \text{CosineSimilarity}(E_{x_i}, E_{y_i})
+                                            \]
+                                            Where \(N\) is the number of sentences in the generated and reference answers.
+                                        </li>
+                                        <li>
+                                            \(\text{CosineSim}_{paragraph}\): Cosine similarity between the full answer embeddings, calculated as:
+                                            \[
+                                            \text{CosineSimilarity}(E_{\text{paragraph, gen}}, E_{\text{paragraph, ref}}) = \frac{E_{\text{paragraph, gen}} \cdot E_{\text{paragraph, ref}}}{\|E_{\text{paragraph, gen}}\| \|E_{\text{paragraph, ref}}\|}
+                                            \]
+                                            Where:
+                                            <ul>
+                                                <li>\(E_{\text{paragraph, gen}}\) and \(E_{\text{paragraph, ref}}\) are the paragraph embeddings obtained by mean pooling over all token embeddings in the generated and reference answers, respectively:</li>
+                                                \[
+                                                E_{\text{paragraph}} = \frac{\sum_{i=1}^{T} E_{\text{token}_i} \cdot \text{Mask}_i}{\sum_{i=1}^{T} \text{Mask}_i}
+                                                \]
+                                                <li>\(T\) is the total number of tokens in the paragraph.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                    
+                                <p>The final score is determined as follows:</p>
+                                <ul>
+                                    <li><strong>Full Match:</strong> If the semantic match score exceeds the semantic similarity threshold (0.9), full points are awarded.</li>
+                                    <li><strong>Partial Match:</strong> If the semantic match score lies between two thresholds of no semantic similarity and full semantic similarity (0.4 to 0.9), partial points are awarded using a linear interpolation:
+                                        \[
+                                        \text{Partial Points} = \frac{\text{Semantic Match Score} - \text{Lower Threshold}}{\text{Full Threshold} - \text{Lower Threshold}} \times \text{Max Points}
+                                        \]
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><strong>Full Match Example:</strong>
+                                <ul>
+                                    <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                    <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                    <li><strong>Model Answer:</strong> "A minimally invasive surgery with a camera."</li>
+                                    <li><strong>Scoring:</strong> Full Points (1).</li>
+                                </ul>
+                            </li>
+
+                            <li><strong>Partial Match Example:</strong>
+                                <ul>
+                                    <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                    <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                    <li><strong>Model Answer:</strong> "A procedure using a camera."</li>
+                                    <li><strong>Scoring:</strong> Partial Points (less than 1).</li> <!--TODO - update to have the semantic scoring number -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                <br>
+
+
             </div>
 
-            <ol>
-                <li>
-                    <strong>Exact Match (Full Points):</strong>
-                    <ul>
-                        <li><strong>Definition:</strong> Full points will be awarded if the model provides an exact match to the known ground truth answer.</li>
-                        <li><strong>Example:</strong>
-                            <ul>
-                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
-                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                <li><strong>Model Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                <li><strong>Scoring:</strong> If the model returns exactly this answer, full points are awarded.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Semantic Match (Full Points):</strong>
-                    <ul>
-                        <li><strong>Definition:</strong> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms).</li>
-                        <li><strong>Example:</strong>
-                            <ul>
-                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
-                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                <li><strong>Model Answer:</strong> "A minimally invasive surgery with a camera."</li>
-                                <li><strong>Scoring:</strong> If the model provides an equivalent meaning with different wording, it will receive full points.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Partial Semantic Similarity (Partial Points):</strong>
-                    <ul>
-                        <li><strong>Definition:</strong> Partial points will be awarded if the model provides an answer that is semantically similar but not completely accurate or misses key details.</li>
-                        <li><strong>Example:</strong>
-                            <ul>
-                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
-                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                <li><strong>Model Answer:</strong> "A procedure using a camera."</li>
-                                <li><strong>Scoring:</strong> Since the model missed the aspect of "minimally invasive," partial points will be awarded for providing a partially correct answer.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Factually Inaccurate Answers (Negative Points):</strong>
-                    <ul>
-                        <li><strong>Definition:</strong> Models that return incorrect answers will receive negative points. This applies if the model introduces false facts or hallucinated information.</li>
-                        <li><strong>Example:</strong>
-                            <ul>
-                                <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
-                                <li><strong>Expected Answer:</strong> "False"</li>
-                                <li><strong>Model Answer:</strong> "True"</li>
-                                <li><strong>Scoring:</strong> This factually incorrect response will receive negative points.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ol>
         </section>
 
         <section>
