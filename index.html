@@ -299,7 +299,7 @@
                     <div class="collapsible">Full to Partial Semantic Match (Full to Partial Points)<span class="plus-minus">+</span></div>
                         <div class="content">
                             <ul>
-                                <li><strong>Definition:</strong> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms). <b> ROGUE and BLEU scores will be calculated for all generated-reference QA response pairs and, in cases where automated metrics may yield uncertain or inconsistent scores, human annotators will be employed in conjuction with those scores along with the semantic similarity scores described below to review and normalize the evaluation. </b></li>
+                                <li><strong>Definition:</strong> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms). ROGUE and BLEU scores will be calculated for all generated-reference QA response pairs and, <b>in cases where automated metrics may yield uncertain or inconsistent scores, human annotators will be employed in conjuction with those scores along with the semantic similarity scores described below to review and normalize the evaluation. </b></li>
                                 
                                 <li><strong>Scoring for Semantic Answer Matching:</strong>
                                     <p>
@@ -402,9 +402,10 @@
 
         <section>
             <h2>Rules and Participation Requirements</h2>
-            <ol>
-                <li>
-                    <strong>Submission Format:</strong>
+            <div class="collapsible-container">
+            
+                <div class="collapsible">Submission Format<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
                         <li>Participants are not required to submit their models. However, they must submit the evaluation metrics generated using the official script provided by the organizers.</li>
                         <li>Submissions must include:
@@ -414,57 +415,77 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Model Transparency:</strong>
+                </div>
+
+                <br>
+            
+                <div class="collapsible">Model Transparency<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
-                        <li>Participants are required to provide clear documentation about:</li>
-                        <ul>
-                            <li>The methods and techniques used, including any training data, preprocessing steps, fine-tuning strategies, and specific algorithms.</li>
-                            <li>Any prompts, prompt engineering, or inference strategies employed.</li>
-                        </ul>
+                        <li>Participants are required to provide clear documentation about:
+                            <ul>
+                                <li>The methods and techniques used, including any training data, preprocessing steps, fine-tuning strategies, and specific algorithms.</li>
+                                <li>Any prompts, prompt engineering, or inference strategies employed.</li>
+                            </ul>
+                        </li>
                         <li>This information will be used to ensure transparency and promote openness within the competition but will not affect leaderboard rankings.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Training and Data Use:</strong>
+                </div>
+
+                <br>
+            
+                <div class="collapsible">Training and Data Use<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
                         <li>Participants are free to use any methods, models, or data sources to achieve the best results.</li>
                         <li>There are no restrictions on the choice of training data, models, or tools. Participants can combine datasets, use proprietary or private data, and leverage any strategies or algorithms to maximize performance.</li>
                         <li><strong>Responsibility:</strong> Participants must ensure their approach complies with all applicable legal and ethical standards regarding data usage and methodology.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Submission Limits:</strong>
+                </div>
+
+                <br>
+            
+                <div class="collapsible">Submission Limits<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
                         <li>Each participant or team may submit a maximum of three sets of evaluation metrics for consideration on the leaderboard.</li>
                         <li>Each submission must reflect a distinct system or approach.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Leaderboard Ranking:</strong>
+                </div>
+
+                <br>
+            
+                <div class="collapsible">Leaderboard Ranking<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
                         <li>Submissions will be ranked on the official leaderboard based solely on the evaluation metrics generated by the provided script.</li>
                         <li>The leaderboard will reflect scores based on exact matches, semantic matches, partial matches, and penalize factually incorrect responses.</li>
                         <li>No distinction will be made between submissions using public or proprietary methods in the rankings. All valid submissions will appear on the leaderboard based on their scores.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Use of ClinIQLink Dataset:</strong>
+                </div>
+
+                <br>
+            
+                <div class="collapsible">Use of ClinIQLink Dataset<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
                         <li>The fully annotated ClinIQLink dataset will be released publicly for participants to use for <b>evaluation purposes only</b>, finetuning over the dataset is not permitted.</li>
                         <li>Participants may use any internal or external datasets, any retrieval methods, any methods to refine models or provide context to questions, or any combination thereof to achieve the best results.</li>
                         <li>Evaluation must be conducted using the official script provided to ensure consistency in scoring.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Evaluation Requirements:</strong>
+                </div>
+
+                <br>
+            
+                <div class="collapsible">Evaluation Requirements<span class="plus-minus">+</span></div>
+                <div class="content">
                     <ul>
                         <li>Participants are required to use the official evaluation script provided by the organizers to generate their metrics.</li>
                         <li>Submissions must strictly adhere to the output format specified by the script to ensure comparability across all entries.</li>
                     </ul>
-                </li>
-            </ol>
+                </div>
+            
+            </div>
         </section>
 
         <section>
