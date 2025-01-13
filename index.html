@@ -81,70 +81,67 @@
 
         .timeline-container {
             position: relative;
-            margin: 30px 0;
-            height: 200px;
-            border-left: 3px solid #0071bc;
+            width: 100%;
+            margin: 20px 0;
         }
 
-        .month-marker {
-            position: absolute;
-            top: 50%;
+        .timeline {
+            position: relative;
             width: 100%;
             height: 2px;
             background-color: #ddd;
-            transform: translateY(-50%);
+            margin: 50px 0;
+        }
+
+        .event {
+            position: absolute;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 150px;
+        }
+
+        .event .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #0071bc;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .event .line {
+            width: 2px;
+            height: 20px;
+            background-color: #0071bc;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .current-date-dot {
+            width: 12px;
+            height: 12px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: -25px;
+            left: 0;
+            transform: translateX(-50%);
         }
 
         .month-label {
             position: absolute;
-            top: 40px;
+            top: -40px;
             transform: translateX(-50%);
             font-weight: bold;
             color: #0071bc;
-        }
-
-        .timeline-event {
-            position: absolute;
-            bottom: 0;
-            width: 150px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            text-align: center;
-            transform: translateY(100%);
-            z-index: 2;
-        }
-
-        .timeline-event::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -20px;
-            width: 20px;
-            height: 2px;
-            background-color: #0071bc;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            height: 2px;
-            width: 100%;
-            background-color: #0071bc;
-            z-index: -1;
-        }
-
-        .current-date {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: red;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
         }
 
 
@@ -559,73 +556,7 @@
             <p>Timeline for ClinIQLink at BioNLP Workshop at ACL 2025:</p>
         
             <div class="timeline-container">
-                <!-- January marker -->
-                <div class="month-marker" style="left: 5%;"></div>
-                <div class="month-label" style="left: 5%;">Jan</div>
-        
-                <!-- February marker -->
-                <div class="month-marker" style="left: 20%;"></div>
-                <div class="month-label" style="left: 20%;">Feb</div>
-        
-                <!-- March marker -->
-                <div class="month-marker" style="left: 35%;"></div>
-                <div class="month-label" style="left: 35%;">Mar</div>
-        
-                <!-- April marker -->
-                <div class="month-marker" style="left: 55%;"></div>
-                <div class="month-label" style="left: 55%;">Apr</div>
-        
-                <!-- May marker -->
-                <div class="month-marker" style="left: 70%;"></div>
-                <div class="month-label" style="left: 70%;">May</div>
-        
-                <!-- July marker -->
-                <div class="month-marker" style="left: 85%;"></div>
-                <div class="month-label" style="left: 85%;">Jul</div>
-        
-                <!-- Events -->
-                <div class="timeline-event" style="left: 5%;">
-                    <h3>January 1, 2025</h3>
-                    <p>First Call for Participation</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 20%;">
-                    <h3>February 15, 2025</h3>
-                    <p>Release of Testing Dataset and Testing Framework</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 35%;">
-                    <h3>March 18, 2025</h3>
-                    <p>System Submission Deadline</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 38%;">
-                    <h3>March 20, 2025</h3>
-                    <p>Papers Submission Deadline</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 55%;">
-                    <h3>April 20, 2025</h3>
-                    <p>Notification of Acceptance</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 70%;">
-                    <h3>May 20, 2025</h3>
-                    <p>Camera Ready Papers Due</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 85%;">
-                    <h3>July 7, 2025</h3>
-                    <p>Pre-recorded Video Due</p>
-                </div>
-        
-                <div class="timeline-event" style="left: 95%;">
-                    <h3>July 31, 2025</h3>
-                    <p>BioNLP Workshop Date</p>
-                </div>
-        
-                <!-- Current date marker -->
-                <div id="current-date-marker" class="current-date"></div>
+                <div class="timeline" id="timeline"></div>
             </div>
 
             <!-- 
@@ -700,7 +631,7 @@
         </section>
         <section>
             <h2>Contact</h2>
-            <p><strong>Brandon Colelough</strong></p>
+            <p>For all questions involving the shared task, please contact <strong>Brandon Colelough</strong></p>
             <p>Email: <a href="mailto:brandon.colelough@nih.giv">brandon.colelough@nih.giv</a></p>
         </section>
         <section>
@@ -714,35 +645,63 @@
 </body>
 
 <script>
-// Timeline dates in the format YYYY-MM-DD
-const timelineDates = [
-        "2025-01-01",
-        "2025-02-15",
-        "2025-03-18",
-        "2025-03-20",
-        "2025-04-20",
-        "2025-05-20",
-        "2025-07-07",
-        "2025-07-31"
-    ];
+const events = [
+            { date: '2025-01-01', title: 'First Call for Participation', description: '' },
+            { date: '2025-02-15', title: 'Release of Testing Dataset and Testing Framework', description: '' },
+            { date: '2025-03-18', title: 'System Submission Deadline', description: '' },
+            { date: '2025-03-20', title: 'Papers Submission Deadline', description: '' },
+            { date: '2025-04-20', title: 'Notification of Acceptance', description: '' },
+            { date: '2025-05-20', title: 'Camera Ready Papers Due', description: '' },
+            { date: '2025-07-07', title: 'Pre-recorded Video Due', description: '' },
+            { date: '2025-07-31', title: 'BioNLP Workshop Date', description: '' }
+        ];
 
-    // Find the current date and position the marker
-    const currentDate = new Date();
-    const startDate = new Date(timelineDates[0]);
-    const endDate = new Date(timelineDates[timelineDates.length - 1]);
+        const timeline = document.getElementById('timeline');
+        const startDate = new Date(events[0].date);
+        const endDate = new Date(events[events.length - 1].date);
+        const totalDuration = endDate - startDate;
+        const currentDate = new Date();
 
-    // Calculate the total timeline duration in milliseconds
-    const totalDuration = endDate - startDate;
-    // Calculate the elapsed duration from the start to the current date
-    const elapsedDuration = currentDate - startDate;
+        // Add month labels and events
+        events.forEach(event => {
+            const eventDate = new Date(event.date);
+            const positionPercent = ((eventDate - startDate) / totalDuration) * 100;
 
-    // Determine the percentage position of the current date marker
-    let currentPercentage = (elapsedDuration / totalDuration) * 100;
-    currentPercentage = Math.min(Math.max(currentPercentage, 0), 100); // Clamp value between 0% and 100%
+            // Create event element
+            const eventElement = document.createElement('div');
+            eventElement.className = 'event';
+            eventElement.style.left = `${positionPercent}%`;
+            eventElement.innerHTML = `
+                <div class="dot"></div>
+                <div class="line"></div>
+                <strong>${event.title}</strong><br>
+                ${new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            `;
+            timeline.appendChild(eventElement);
+        });
 
-    // Position the current date marker on the timeline
-    const currentDateMarker = document.getElementById("current-date-marker");
-    currentDateMarker.style.left = currentPercentage + "%";
+        // Add current date marker
+        if (currentDate >= startDate && currentDate <= endDate) {
+            const currentPositionPercent = ((currentDate - startDate) / totalDuration) * 100;
+            const currentDot = document.createElement('div');
+            currentDot.className = 'current-date-dot';
+            currentDot.style.left = `${currentPositionPercent}%`;
+            timeline.appendChild(currentDot);
+        }
+
+        // Add month labels
+        const monthDiff = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
+        for (let i = 0; i <= monthDiff; i++) {
+            const monthDate = new Date(startDate);
+            monthDate.setMonth(startDate.getMonth() + i);
+            const monthPositionPercent = ((monthDate - startDate) / totalDuration) * 100;
+
+            const monthLabel = document.createElement('div');
+            monthLabel.className = 'month-label';
+            monthLabel.style.left = `${monthPositionPercent}%`;
+            monthLabel.innerText = monthDate.toLocaleDateString('en-US', { month: 'short' });
+            timeline.appendChild(monthLabel);
+        }
 
     const collapsibles = document.querySelectorAll(".collapsible");
     collapsibles.forEach(button => {
