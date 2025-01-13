@@ -4,21 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClinIQLink 2025 - LLM Lie Detector Test</title>
-    <script>
-        const collapsibles = document.querySelectorAll(".collapsible");
-        collapsibles.forEach(button => {
-            button.addEventListener("click", () => {
-                button.classList.toggle("active");
-                const content = button.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
-                }
-            });
-        });
-    </script>
     <style>
+
+        
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -51,47 +39,6 @@
             background-color: #ffffff;
             border: 1px solid #aeb0b5;
         }
-        .collapsible {
-            cursor: pointer;
-            padding: 10px;
-            text-align: left;
-            outline: none;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            background-color: #0071bc;
-            color: white;
-            margin-top: 10px;
-            width: 100%;
-        }
-        
-        .collapsible:after {
-            content: '\002B'; /* Unicode for plus symbol */
-            font-size: 13px;
-            float: right;
-        }
-        
-        .collapsible.active:after {
-            content: '\2212'; /* Unicode for minus symbol */
-        }
-        
-        .content {
-            padding: 0 15px;
-            display: none;
-            overflow: hidden;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-        }
-        .collapsible.active:after {
-            content: '\2212';
-        }
-        .content {
-            padding: 0 15px;
-            display: none;
-            overflow: hidden;
-            background-color: #f9f9f9;
-        }
         a {
             color: #0071bc;
             text-decoration: none;
@@ -108,6 +55,32 @@
             bottom: 0;
             width: 100%;
         }
+
+        .collapsible {
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .collapsible:hover {
+            color: #0071bc;
+        }
+
+        .plus-minus {
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
+        .content {
+            padding: 5px 15px;
+            display: none;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 768px) {
             body {
                 font-size: 14px;
@@ -144,53 +117,46 @@
             <h2>Datasets</h2>
             <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, specifically curated to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics.</p>
             
+            <div class="collapsible-container">
+                <div class="collapsible">Short Answer <span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
+                    <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
+                </div>
         
-            <button class="collapsible">True/False</button>
-            <div class="content">
-                <p><strong>Question:</strong><br><em>"Antibiotics can treat viral infections."</em></p>
-                <p><strong>Answer:</strong><br><em>"False."</em></p>
-            </div>
+                <div class="collapsible">True/False <span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p><strong>Question:</strong><br><em>"Antibiotics can treat viral infections."</em></p>
+                    <p><strong>Answer:</strong><br><em>"False."</em></p>
+                </div>
         
-            <button class="collapsible">List</button>
-            <div class="content">
-                <p><strong>Question:</strong><br><em>"List the four chambers of the human heart."</em></p>
-                <p><strong>Options:</strong></p>
-                <ul>
-                    <li>A. right atrium</li>
-                    <li>B. top atrium</li>
-                    <li>C. right ventricle</li>
-                    <li>D. bottom ventricle</li>
-                    <li>E. left atrium</li>
-                    <li>F. left ventricle</li>
-                </ul>
-                <p><strong>Answer:</strong><br><em>"A. right atrium, C. right ventricle, E. left atrium, F. left ventricle."</em></p>
-            </div>
+                <div class="collapsible">List <span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p><strong>Question:</strong><br><em>"List the four chambers of the human heart."</em></p>
+                    <p><strong>Options:</strong></p>
+                    <ul>
+                        <li>A. right atrium</li>
+                        <li>B. top atrium</li>
+                        <li>C. right ventricle</li>
+                        <li>D. bottom ventricle</li>
+                        <li>E. left atrium</li>
+                        <li>F. left ventricle</li>
+                    </ul>
+                    <p><strong>Answer:</strong><br><em>"A. right atrium, C. right ventricle, E. left atrium, F. left ventricle."</em></p>
+                </div>
         
-            <button class="collapsible">Multiple Choice</button>
-            <div class="content">
-                <p><strong>Question:</strong><br><em>"Which of the following is not a symptom of diabetes?"</em></p>
-                <p><strong>Options:</strong></p>
-                <ul>
-                    <li>A. Increased thirst</li>
-                    <li>B. Frequent urination</li>
-                    <li>C. Blurred vision</li>
-                    <li>D. High fever</li>
-                </ul>
-                <p><strong>Correct Answer:</strong><br><em>"D. High fever"</em></p>
-            </div>
-
-            <button class="collapsible">Short Answer</button>
-            <div class="content">
-                <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
-                <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
-            </div>
-        
-            <button class="collapsible">Multi-Hop Reasoning</button>
-            <div class="content">
-                <p><strong>Question:</strong><br><em>"A patient presents with fatigue and shortness of breath. Lab results show low hemoglobin levels and high mean corpuscular volume (MCV). Based on these findings, what condition might the patient have, and what deficiency could be contributing to it?"</em></p>
-                <p><strong>Answer:</strong><br><em>"The patient might have megaloblastic anemia caused by a vitamin B12 deficiency."</em></p>
-                <p><strong>Reasoning:</strong><br>
-                <em>"Step 1: Fatigue and shortness of breath are symptoms of anemia. Step 2: High MCV indicates macrocytic anemia. Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency. Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
+                <div class="collapsible">Multiple Choice <span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p><strong>Question:</strong><br><em>"Which of the following is not a symptom of diabetes?"</em></p>
+                    <p><strong>Options:</strong></p>
+                    <ul>
+                        <li>A. Increased thirst</li>
+                        <li>B. Frequent urination</li>
+                        <li>C. Blurred vision</li>
+                        <li>D. High fever</li>
+                    </ul>
+                    <p><strong>Correct Answer:</strong><br><em>"D. High fever"</em></p>
+                </div>
             </div>
         </section>
 
@@ -409,4 +375,23 @@
         <p>&copy; 2025 LLM Lie Detector Task. All rights reserved.</p>
     </footer>
 </body>
+
+<script>
+    const collapsibles = document.querySelectorAll(".collapsible");
+    collapsibles.forEach(button => {
+        button.addEventListener("click", () => {
+            button.classList.toggle("active");
+            const content = button.nextElementSibling;
+            const plusMinus = button.querySelector(".plus-minus");
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                plusMinus.textContent = "+";
+            } else {
+                content.style.display = "block";
+                plusMinus.textContent = "−";
+            }
+        });
+    });
+</script>
+
 </html>
