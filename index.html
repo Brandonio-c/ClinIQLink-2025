@@ -118,18 +118,30 @@
             <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, specifically curated to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics.</p>
             
             <div class="collapsible-container">
-                <div class="collapsible">Short Answer <span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
-                    <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
-                </div>
         
                 <div class="collapsible">True/False <span class="plus-minus">+</span></div>
                 <div class="content">
                     <p><strong>Question:</strong><br><em>"Antibiotics can treat viral infections."</em></p>
                     <p><strong>Answer:</strong><br><em>"False."</em></p>
                 </div>
+
+                <br>
         
+                <div class="collapsible">Multiple Choice <span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p><strong>Question:</strong><br><em>"Which of the following is not a symptom of diabetes?"</em></p>
+                    <p><strong>Options:</strong></p>
+                    <ul>
+                        <li>A. Increased thirst</li>
+                        <li>B. Frequent urination</li>
+                        <li>C. Blurred vision</li>
+                        <li>D. High fever</li>
+                    </ul>
+                    <p><strong>Correct Answer:</strong><br><em>"D. High fever"</em></p>
+                </div>
+
+                <br>
+
                 <div class="collapsible">List <span class="plus-minus">+</span></div>
                 <div class="content">
                     <p><strong>Question:</strong><br><em>"List the four chambers of the human heart."</em></p>
@@ -144,19 +156,24 @@
                     </ul>
                     <p><strong>Answer:</strong><br><em>"A. right atrium, C. right ventricle, E. left atrium, F. left ventricle."</em></p>
                 </div>
-        
-                <div class="collapsible">Multiple Choice <span class="plus-minus">+</span></div>
+
+                <br>
+
+                <div class="collapsible">Short Answer <span class="plus-minus">+</span></div>
                 <div class="content">
-                    <p><strong>Question:</strong><br><em>"Which of the following is not a symptom of diabetes?"</em></p>
-                    <p><strong>Options:</strong></p>
-                    <ul>
-                        <li>A. Increased thirst</li>
-                        <li>B. Frequent urination</li>
-                        <li>C. Blurred vision</li>
-                        <li>D. High fever</li>
-                    </ul>
-                    <p><strong>Correct Answer:</strong><br><em>"D. High fever"</em></p>
+                    <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
+                    <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
                 </div>
+
+                <br>
+
+                <div class="collapsible"><strong>Multi-Hop Reasoning:</strong><span class="plus-minus">+</span></div>
+                <div class="content">
+                    <p><strong>Question:</strong><br><em>"A patient presents with fatigue and shortness of breath. Lab results show low hemoglobin levels and high mean corpuscular volume (MCV). Based on these findings, what condition might the patient have, and what deficiency could be contributing to it?"</em></p>
+                    <p><strong>Answer:</strong><br><em>"The patient might have megaloblastic anemia caused by a vitamin B12 deficiency."</em></p>
+                    <p><strong>Reasoning:</strong><br><em>"Step 1: Fatigue and shortness of breath are symptoms of anemia. Step 2: High MCV indicates macrocytic anemia. Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency. Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
+                </div>
+
             </div>
         </section>
 
