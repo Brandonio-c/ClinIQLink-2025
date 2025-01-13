@@ -82,20 +82,21 @@
         .timeline-container {
             position: relative;
             width: 100%;
-            margin: 20px 0;
+            margin: 50px auto;
+            overflow: hidden;
+            padding: 20px 0;
         }
 
         .timeline {
             position: relative;
-            width: 100%;
+            width: 90%;
             height: 2px;
             background-color: #ddd;
-            margin: 50px 0;
+            margin: 0 auto;
         }
 
         .event {
             position: absolute;
-            transform: translateX(-50%);
             text-align: center;
             padding: 10px;
             border: 1px solid #ddd;
@@ -117,12 +118,20 @@
 
         .event .line {
             width: 2px;
-            height: 20px;
+            height: 30px;
             background-color: #0071bc;
             position: absolute;
-            top: -20px;
+            top: -30px;
             left: 50%;
             transform: translateX(-50%);
+        }
+
+        .event-top {
+            top: -60px;
+        }
+
+        .event-bottom {
+            top: 40px;
         }
 
         .current-date-dot {
@@ -634,13 +643,15 @@
             <p>For all questions involving the shared task, please contact <strong>Brandon Colelough</strong></p>
             <p>Email: <a href="mailto:brandon.colelough@nih.giv">brandon.colelough@nih.giv</a></p>
         </section>
+        <!--
         <section>
             <h2>Conclusion</h2>
             <p>The LLM Lie Detector Test using Knowledge Retrieval is aimed at evaluating the factual accuracy of generative models, particularly in the medical domain. Participants will be provided a comprehensive framework with atomic question-answer pairs and well-defined evaluation metrics. This task focuses on the retrieval of accurate, precise information, without assessing the model’s reasoning or commonsense capabilities. Participants are expected to develop models that can reliably provide factually grounded answers to medical queries, and the competition will reward exact matches, semantic equivalents, and penalize factually incorrect or hallucinated responses. The task prioritizes transparency in model submissions, ensuring reproducibility and integrity.</p>
         </section>
+        -->
     </main>
     <footer>
-        <p>&copy; 2025 LLM Lie Detector Task. All rights reserved.</p>
+        <p>&copy; 2025 NIH NLM LLM Lie Detector Task @ BioNLP @ ACL. All rights reserved.</p>
     </footer>
 </body>
 
@@ -662,14 +673,17 @@ const events = [
         const totalDuration = endDate - startDate;
         const currentDate = new Date();
 
-        // Add month labels and events
-        events.forEach(event => {
+        // Add events to the timeline
+        events.forEach((event, index) => {
             const eventDate = new Date(event.date);
             const positionPercent = ((eventDate - startDate) / totalDuration) * 100;
 
+            // Alternate event position (top/bottom)
+            const positionClass = index % 2 === 0 ? 'event-top' : 'event-bottom';
+
             // Create event element
             const eventElement = document.createElement('div');
-            eventElement.className = 'event';
+            eventElement.className = `event ${positionClass}`;
             eventElement.style.left = `${positionPercent}%`;
             eventElement.innerHTML = `
                 <div class="dot"></div>
