@@ -79,69 +79,66 @@
             margin-bottom: 10px;
         }
 
-        .timeline {
-            position: relative;
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 10px 0;
+        .timeline-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow-x: auto;
+            padding: 20px 0;
+            white-space: nowrap;
         }
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background-color: #0071bc;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-        }
+
         .timeline-event {
-            position: relative;
-            margin: 20px 0;
-            padding: 10px 20px;
+            display: inline-block;
+            width: 180px;
+            padding: 15px;
             background-color: #f9f9f9;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 45%;
+            border-radius: 8px;
+            text-align: center;
+            margin-right: 20px;
+            position: relative;
         }
-        .timeline-event::after {
+
+        .timeline-event::before {
             content: '';
             position: absolute;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+            top: 50%;
+            left: -10px;
+            width: 10px;
+            height: 10px;
             background-color: #0071bc;
-            border: 2px solid #ffffff;
-            top: 20px;
-            left: -6px;
+            border-radius: 50%;
+            transform: translateY(-50%);
         }
-        .timeline-event.left {
-            left: 0;
-        }
-        .timeline-event.right {
-            left: 55%;
-        }
+
         .timeline-event h3 {
-            margin: 0;
+            margin: 10px 0;
             color: #0071bc;
+            font-size: 16px;
         }
+
         .timeline-event p {
-            margin: 5px 0 0 0;
+            margin: 5px 0;
             font-size: 14px;
             color: #212121;
         }
-        .timeline-event:hover {
-            background-color: #e6f4ff;
+
+        .timeline-event:last-child {
+            margin-right: 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background-color: #0071bc;
+            z-index: -1;
         }
 
         @media (max-width: 768px) {
-            .timeline-event {
-                width: 90%;
-                left: 5%;
-            }
-            .timeline-event.right {
-                left: 5%;
-            }
             body {
                 font-size: 14px;
             }
@@ -549,7 +546,50 @@
 
         <section>
             <h2>Timeline</h2>
-            <p>Timeline for BioNLP Workshop at ACL 2025:</p>
+            <p>Timeline for ClinIQLink at BioNLP Workshop at ACL 2025:</p>
+        
+            <div class="timeline-container">
+                <div class="timeline-event">
+                    <h3>January 1, 2025</h3>
+                    <p>First Call for Participation</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>February 15, 2025</h3>
+                    <p>Release of Testing Dataset and Testing Framework</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>March 18, 2025</h3>
+                    <p>System Submission Deadline</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>March 20, 2025</h3>
+                    <p>Papers Submission Deadline</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>April 20, 2025</h3>
+                    <p>Notification of Acceptance</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>May 20, 2025</h3>
+                    <p>Camera Ready Papers Due</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>July 7, 2025</h3>
+                    <p>Pre-recorded Video Due</p>
+                </div>
+        
+                <div class="timeline-event">
+                    <h3>July 31, 2025</h3>
+                    <p>BioNLP Workshop Date</p>
+                </div>
+            </div>
+            <!-- 
             <ul>
                 <li>January 15, 2025: First Call for Participation</li>
                 <li>February 15, 2025: Release of Testing Dataset and Testing Framework</li>
@@ -560,50 +600,7 @@
                 <li>July 7, 2025: Pre-recorded Video Due</li>
                 <li>July 31, 2025: BioNLP Workshop Date (at ACL 2025)</li>
             </ul>
-
-            <div class="timeline">
-                <div class="timeline-event left">
-                    <h3>January 15, 2025</h3>
-                    <p>First Call for Participation</p>
-                </div>
-                
-                <div class="timeline-event right">
-                    <h3>February 15, 2025</h3>
-                    <p>Release of Testing Dataset and Testing Framework</p>
-                </div>
-                
-                <div class="timeline-event left">
-                    <h3>March 18, 2025</h3>
-                    <p>System Submission Deadline</p>
-                </div>
-                
-                <div class="timeline-event right">
-                    <h3>March 20, 2025</h3>
-                    <p>Papers Submission Deadline</p>
-                </div>
-                
-                <div class="timeline-event left">
-                    <h3>April 20, 2025</h3>
-                    <p>Notification of Acceptance</p>
-                </div>
-                
-                <div class="timeline-event right">
-                    <h3>May 20, 2025</h3>
-                    <p>Camera Ready Papers Due</p>
-                </div>
-                
-                <div class="timeline-event left">
-                    <h3>July 7, 2025</h3>
-                    <p>Pre-recorded Video Due</p>
-                </div>
-                
-                <div class="timeline-event right">
-                    <h3>July 31, 2025</h3>
-                    <p>BioNLP Workshop Date</p>
-                </div>
-            </div>
-
-            <!-- <img src="Images/Timeline.png" alt="Timeline" style="width:100%; margin-top:20px;">-->
+            <img src="Images/Timeline.png" alt="Timeline" style="width:100%; margin-top:20px;">-->
         </section>
 
         <section>
