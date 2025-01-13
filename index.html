@@ -109,13 +109,13 @@
                 
                 Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information. The benchmarking framework will pose well-defined, atomic questions to the models, requiring a single, precise response. These questions will assess the model's knowledge about fundamental medical concepts and its ability to avoid common pitfalls like hallucination or factual inaccuracies. Scoring will be based on the precision of the answers and will involve partial, full, or negative points based on accuracy. Full points will be awarded for exact or semantically equivalent answers, while incorrect answers or repeated factual errors on the same concept will result in negative scores.
                 
-                <b>Participants are encouraged to make their models public for transparency, but this will be optional.</b> This task focuses purely on fact retrieval and does not assess reasoning abilities like commonsense reasoning, temporal understanding, or logical consistency.
+                <b>Participants are encouraged to make their models public for transparency, but this will be optional.</b> This task focuses on knowledge retrieval from models and does not assess reasoning abilities like commonsense reasoning, temporal understanding, or logical consistency.
             </p>
         </section>
 
         <section>
             <h2>Datasets</h2>
-            <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, specifically curated to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics.</p>
+            <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, designed to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics. The dataset question-answer pair consist of the following five modalities: </p>
             
             <div class="collapsible-container">
         
@@ -167,11 +167,11 @@
 
                 <br>
 
-                <div class="collapsible"><strong>Multi-Hop Reasoning:</strong><span class="plus-minus">+</span></div>
+                <div class="collapsible"><strong>Multi-Hop Knowledge-Retrieval Answers</strong><span class="plus-minus">+</span></div>
                 <div class="content">
                     <p><strong>Question:</strong><br><em>"A patient presents with fatigue and shortness of breath. Lab results show low hemoglobin levels and high mean corpuscular volume (MCV). Based on these findings, what condition might the patient have, and what deficiency could be contributing to it?"</em></p>
                     <p><strong>Answer:</strong><br><em>"The patient might have megaloblastic anemia caused by a vitamin B12 deficiency."</em></p>
-                    <p><strong>Reasoning:</strong><br><em>"Step 1: Fatigue and shortness of breath are symptoms of anemia. Step 2: High MCV indicates macrocytic anemia. Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency. Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
+                    <p><strong>Reasoning:</strong><br><em>"Step 1: Fatigue and shortness of breath are symptoms of anemia.<br>Step 2: High MCV indicates macrocytic anemia.<br>Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency.<br>Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
                 </div>
 
             </div>
@@ -179,6 +179,85 @@
 
         <section>
             <h2>Evaluation Metrics</h2>
+
+            <p>Our evaluation framework is organized into two primary categories: (1) Closed-ended questions (True/False, lists, and multiple choice) and (2) Open-ended questions (short answer and Multi-Hop Knowledge-Retrieval Answers).</p>
+            
+            <div class="collapsible-container">
+
+                <div class="collapsible">Closed-ended questions<span class="plus-minus">+</span></div>
+                <div class="content">
+        
+                    <p>
+                        Closed-ended questions include True/False, list, and multiple-choice formats. These are evaluated using the <strong>F1 score</strong> and a penalty system for factually inaccurate answers.
+                    </p>
+        
+                    <h3>F1 Score Definition</h3>
+                    <p>The F1 score is the harmonic mean of <strong>precision</strong> and <strong>recall</strong>, providing a balanced metric that accounts for both false positives and false negatives.</p>
+                    <ul>
+                        <li><strong>Precision:</strong> The proportion of correctly predicted answers out of all predicted answers.</li>
+                        <li><strong>Recall:</strong> The proportion of correctly predicted answers out of all actual correct answers.</li>
+                        <li><strong>F1 Score:</strong> 
+                            \[
+                            \text{F1 Score} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+                            \]
+                        </li>
+                    </ul>
+        
+                    <div class="collapsible">True/False Questions<span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p>
+                            True/False questions are evaluated by comparing the model’s response to the expected answer, with scoring based on precision, recall, and F1.
+                        </p>
+                        <p><strong>Example:</strong></p>
+                        <ul>
+                            <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
+                            <li><strong>Expected Answer:</strong> "False"</li>
+                            <li><strong>Model Answer:</strong> "True"</li>
+                            <li><strong>Result:</strong> TP = 0, FP = 1, FN = 1</li>
+                        </ul>
+                    </div>
+        
+                    <div class="collapsible">List Questions<span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p>
+                            List questions are evaluated by comparing individual items in the model’s response to the expected list. Each correctly identified item is considered a True Positive (TP), while missing items count as False Negatives (FN), and incorrect items as False Positives (FP).
+                        </p>
+                        <p><strong>Example:</strong></p>
+                        <ul>
+                            <li><strong>Question:</strong> "List the four chambers of the human heart."</li>
+                            <li><strong>Expected Answer:</strong> "Right atrium, right ventricle, left atrium, left ventricle."</li>
+                            <li><strong>Model Answer:</strong> "Right atrium, right ventricle, left atrium."</li>
+                            <li><strong>Result:</strong> TP = 3, FP = 0, FN = 1</li>
+                        </ul>
+                    </div>
+        
+                    <div class="collapsible">Multiple Choice Questions<span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p>
+                            Multiple-choice questions are scored by checking if the selected option matches the correct answer. An incorrect selection counts as a False Positive (FP), and a failure to answer or an irrelevant response counts as a False Negative (FN).
+                        </p>
+                        <p><strong>Example:</strong></p>
+                        <ul>
+                            <li><strong>Question:</strong> "Which of the following is not a symptom of diabetes?"</li>
+                            <li><strong>Options:</strong></li>
+                            <ul>
+                                <li>A. Increased thirst</li>
+                                <li>B. Frequent urination</li>
+                                <li>C. Blurred vision</li>
+                                <li>D. High fever</li>
+                            </ul>
+                            <li><strong>Expected Answer:</strong> "D. High fever"</li>
+                            <li><strong>Model Answer:</strong> "B. Frequent urination"</li>
+                            <li><strong>Result:</strong> TP = 0, FP = 1, FN = 1</li>
+                        </ul>
+                    </div>
+        
+                </div>
+        
+                <br>
+        
+            </div>
+
             <ol>
                 <li>
                     <strong>Exact Match (Full Points):</strong>
