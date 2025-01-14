@@ -101,14 +101,25 @@
             content: "";
             position: absolute;
             width: 2px;
-            height: 20px;
+            height: 40px;
             background-color: #007bff;
+        }
+
+        .event-box.top {
+            bottom: 100%; /* Place above the timeline */
+            transform: translateY(-20px); /* Add spacing */
         }
         .event-box.top::after {
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
         }
+
+        .event-box.bottom {
+            top: 100%; /* Place below the timeline */
+            transform: translateY(20px); /* Add spacing */
+        }
+
         .event-box.bottom::after {
             bottom: 100%;
             left: 50%;
@@ -558,7 +569,7 @@
             
                 <!-- Events -->
                 <div class="event-box bottom" id="event-first_call">
-                    <div class="event-date">January 1, 2025</div>
+                    <div class="event-date">January 15, 2025</div>
                     First Call for Participation
                 </div>
                 <div class="event-box top" id="event-release">
