@@ -101,14 +101,15 @@
             content: "";
             position: absolute;
             width: 2px;
-            height: 40px;
+            height: 60px;
             background-color: #007bff;
         }
 
         .event-box.top {
-            bottom: 100%; /* Place above the timeline */
-            transform: translateY(-20px); /* Add spacing */
+            bottom: 100%;
+            transform: translateY(-60px); /* Increased spacing above the timeline */
         }
+
         .event-box.top::after {
             top: 100%;
             left: 50%;
@@ -116,8 +117,8 @@
         }
 
         .event-box.bottom {
-            top: 100%; /* Place below the timeline */
-            transform: translateY(20px); /* Add spacing */
+            top: 100%;
+            transform: translateY(60px); /* Increased spacing below the timeline */
         }
 
         .event-box.bottom::after {
