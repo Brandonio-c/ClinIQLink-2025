@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClinIQLink 2025 - LLM Lie Detector Test</title>
+    <link rel="icon" type="image/png" href="2012-logo.png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,6 +71,14 @@
             margin-left: 5px;
         }
 
+        .collapsible h2 {
+            display: inline-block;
+            margin: 0; /* Optional: removes default margin */
+        }
+        .collapsible .plus-minus {
+            margin-left: 10px; /* Add spacing between the heading and the toggle */
+        }
+
         .content {
             padding: 5px 15px;
             display: none;
@@ -83,10 +92,10 @@
             position: relative;
             width: 95%;
             height: 400px;
-            margin-top: 40px;
-            margin-bottom: 40px;
-            margin-left: 20px;
-            margin-right: 20px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
             border-top: 2px solid #ddd;
             top: 50%;
             transform: translateY(50%); /* Centers the line vertically */
@@ -123,7 +132,7 @@
 
         .event-box.bottom {
             top: 100%;
-            transform: translateY(-60px); /* Move the box closer to the timeline */
+            transform: translateY(-342px); /* Move the box closer to the timeline */
         }
 
         .event-box.bottom::after {
@@ -151,6 +160,37 @@
             transform: translateX(-50%);
         }
 
+        .acl-region {
+            position: absolute;
+            height: 60px; /* Adjust based on timeline height */
+            background-color: rgba(0, 123, 255, 0.3); /* Blue with 20% opacity */
+            border-top: 2px solid blue; /* Only show border at the top */
+            top: -65px; /* Adjust to vertically center it on the timeline */
+            width: calc(100% * ((new Date('2025-08-01') - new Date('2025-07-27')) / totalDuration)); /* Dynamic width based on date range */
+            left: calc(100% * ((new Date('2025-07-27') - timelineStart) / totalDuration)); /* Position start of region */
+            z-index: 1; /* Ensure it appears below the event boxes */
+            text-align: center; /* Center the text */
+            font-weight: bold; /* Make the text bold */
+            font-size: 14px; /* Adjust text size */
+            color: blue; /* Text color */
+            line-height: 60px; /* Center the text vertically */
+            pointer-events: none; /* Prevent user interaction */
+        }
+
+
+        .acl-label {
+    position: absolute;
+    top: -150px; /* Position the label above the ACL region */
+    left: 94%;
+    /* Calculate center of ACL region and offset by half the width of the label */
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: blue;
+    z-index: 2; /* Ensure it appears above the ACL region */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
 
         @media (max-width: 768px) {
             body {
@@ -173,444 +213,479 @@
     </header>
     <main>
         <section>
-            <h2>Task Overview</h2>
-            <p>
-                The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will <b>submit their evaluation metrics to a leaderboard </b> using the official script provided by the organizers. The leaderboard will automatically rank submissions based on the reported results.
-                
-                Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information. The benchmarking framework will pose well-defined, atomic questions to the models, requiring a single, precise response. These questions will assess the model's knowledge about fundamental medical concepts and its ability to avoid common pitfalls like hallucination or factual inaccuracies. Scoring will be based on the precision of the answers and will involve partial, full, or negative points based on accuracy. Full points will be awarded for exact or semantically equivalent answers, while incorrect answers or repeated factual errors on the same concept will result in negative scores.
-                
-                <b>Participants are encouraged to make their models public for transparency, but this will be optional.</b> This task focuses on knowledge retrieval from models and does not assess reasoning abilities like commonsense reasoning, temporal understanding, or logical consistency.
-            </p>
+
+            <div class="collapsible"><h2>Task Overview</h2><span class="plus-minus">+</span></div>
+                    <div class="content"> <!--style="display: block;"-->
+                        <p>
+                            The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will <b>submit their evaluation metrics to a leaderboard </b> using the official script provided by the organizers. The leaderboard will automatically rank submissions based on the reported results.
+                            
+                            Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information. The benchmarking framework will pose well-defined, atomic questions to the models, requiring a single, precise response. These questions will assess the model's knowledge about fundamental medical concepts and its ability to avoid common pitfalls like hallucination or factual inaccuracies. Scoring will be based on the precision of the answers and will involve partial, full, or negative points based on accuracy. Full points will be awarded for exact or semantically equivalent answers, while incorrect answers or repeated factual errors on the same concept will result in negative scores.
+                            
+                            <b>Participants are encouraged to make their models public for transparency, but this will be optional.</b> This task focuses on knowledge retrieval from models and does not assess reasoning abilities like commonsense reasoning, temporal understanding, or logical consistency.
+                        </p>
+                    </div>
+            
         </section>
 
         <section>
-            <h2>Datasets</h2>
-            <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, designed to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics. The dataset question-answer pair consist of the following five modalities: </p>
+
+            <div class="collapsible"><h2>Datasets</h2> <span class="plus-minus">+</span></div>
+            <div class="content"><!--style="display: block;"-->
+                <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, designed to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics. The dataset question-answer pair consist of the following five modalities: </p>
             
-            <div class="collapsible-container">
-        
-                <div class="collapsible">True/False <span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p><strong>Question:</strong><br><em>"Antibiotics can treat viral infections."</em></p>
-                    <p><strong>Answer:</strong><br><em>"False."</em></p>
+                <div class="collapsible-container">
+            
+                    <div class="collapsible">True/False <span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Question:</strong><br><em>"Antibiotics can treat viral infections."</em></p>
+                        <p><strong>Answer:</strong><br><em>"False."</em></p>
+                    </div>
+
+                    <br>
+            
+                    <div class="collapsible">Multiple Choice <span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Question:</strong><br><em>"Which of the following is not a symptom of diabetes?"</em></p>
+                        <p><strong>Options:</strong></p>
+                        <ul>
+                            <li>A. Increased thirst</li>
+                            <li>B. Frequent urination</li>
+                            <li>C. Blurred vision</li>
+                            <li>D. High fever</li>
+                        </ul>
+                        <p><strong>Correct Answer:</strong><br><em>"D. High fever"</em></p>
+                    </div>
+
+                    <br>
+
+                    <div class="collapsible">List <span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Question:</strong><br><em>"List the four chambers of the human heart."</em></p>
+                        <p><strong>Options:</strong></p>
+                        <ul>
+                            <li>A. right atrium</li>
+                            <li>B. top atrium</li>
+                            <li>C. right ventricle</li>
+                            <li>D. bottom ventricle</li>
+                            <li>E. left atrium</li>
+                            <li>F. left ventricle</li>
+                        </ul>
+                        <p><strong>Answer:</strong><br><em>"A. right atrium, C. right ventricle, E. left atrium, F. left ventricle."</em></p>
+                    </div>
+
+                    <br>
+
+                    <div class="collapsible">Short Answer <span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
+                        <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
+                    </div>
+
+                    <br>
+
+                    <div class="collapsible"><strong>Multi-Hop Knowledge-Retrieval Answers</strong><span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Question:</strong><br><em>"A patient presents with fatigue and shortness of breath. Lab results show low hemoglobin levels and high mean corpuscular volume (MCV). Based on these findings, what condition might the patient have, and what deficiency could be contributing to it?"</em></p>
+                        <p><strong>Answer:</strong><br><em>"The patient might have megaloblastic anemia caused by a vitamin B12 deficiency."</em></p>
+                        <p><strong>Reasoning:</strong><br><em>"Step 1: Fatigue and shortness of breath are symptoms of anemia.<br>Step 2: High MCV indicates macrocytic anemia.<br>Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency.<br>Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
+                    </div>
+
                 </div>
-
-                <br>
-        
-                <div class="collapsible">Multiple Choice <span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p><strong>Question:</strong><br><em>"Which of the following is not a symptom of diabetes?"</em></p>
-                    <p><strong>Options:</strong></p>
-                    <ul>
-                        <li>A. Increased thirst</li>
-                        <li>B. Frequent urination</li>
-                        <li>C. Blurred vision</li>
-                        <li>D. High fever</li>
-                    </ul>
-                    <p><strong>Correct Answer:</strong><br><em>"D. High fever"</em></p>
-                </div>
-
-                <br>
-
-                <div class="collapsible">List <span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p><strong>Question:</strong><br><em>"List the four chambers of the human heart."</em></p>
-                    <p><strong>Options:</strong></p>
-                    <ul>
-                        <li>A. right atrium</li>
-                        <li>B. top atrium</li>
-                        <li>C. right ventricle</li>
-                        <li>D. bottom ventricle</li>
-                        <li>E. left atrium</li>
-                        <li>F. left ventricle</li>
-                    </ul>
-                    <p><strong>Answer:</strong><br><em>"A. right atrium, C. right ventricle, E. left atrium, F. left ventricle."</em></p>
-                </div>
-
-                <br>
-
-                <div class="collapsible">Short Answer <span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
-                    <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
-                </div>
-
-                <br>
-
-                <div class="collapsible"><strong>Multi-Hop Knowledge-Retrieval Answers</strong><span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p><strong>Question:</strong><br><em>"A patient presents with fatigue and shortness of breath. Lab results show low hemoglobin levels and high mean corpuscular volume (MCV). Based on these findings, what condition might the patient have, and what deficiency could be contributing to it?"</em></p>
-                    <p><strong>Answer:</strong><br><em>"The patient might have megaloblastic anemia caused by a vitamin B12 deficiency."</em></p>
-                    <p><strong>Reasoning:</strong><br><em>"Step 1: Fatigue and shortness of breath are symptoms of anemia.<br>Step 2: High MCV indicates macrocytic anemia.<br>Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency.<br>Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
-                </div>
-
             </div>
+
+            
+            
         </section>
 
         <section>
-            <h2>Evaluation Metrics</h2>
 
-            <p>Our evaluation framework is organized into two primary categories: (1) Closed-ended questions (True/False, lists, and multiple choice) and (2) Open-ended questions (short answer and Multi-Hop Knowledge-Retrieval Answers).</p>
-            
-            <div class="collapsible-container">
+            <div class="collapsible"><h2>Evaluation Metrics</h2><span class="plus-minus">+</span></div>
+                <div class="content"> <!--style="display: block;"-->
+                    <p>Our evaluation framework is organized into two primary categories: (1) Closed-ended questions (True/False, lists, and multiple choice) and (2) Open-ended questions (short answer and Multi-Hop Knowledge-Retrieval Answers).</p>
+                    <div class="collapsible-container">
 
-                <div class="collapsible">Closed-ended questions<span class="plus-minus">+</span></div>
-                <div class="content">
-        
-                    <p>
-                        Closed-ended questions include True/False, list, and multiple-choice formats. These are evaluated using the <strong>F1 score</strong> and a penalty system for factually inaccurate answers.
-                    </p>
-        
-                    <h3>F1 Score Definition</h3>
-                    <p>The F1 score is the harmonic mean of <strong>precision</strong> and <strong>recall</strong>, providing a balanced metric that accounts for both false positives and false negatives.</p>
-                    <ul>
-                        <li><strong>Precision:</strong> The proportion of correctly predicted answers out of all predicted answers.</li>
-                        <li><strong>Recall:</strong> The proportion of correctly predicted answers out of all actual correct answers.</li>
-                        <li><strong>F1 Score:</strong> 
-                            \[
-                            \text{F1 Score} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
-                            \]
-                        </li>
-                    </ul>
-                    
-                    <br>
-
-                    <div class="collapsible">True/False Questions<span class="plus-minus">+</span></div>
-                    <div class="content">
-                        <p>
-                            True/False questions are evaluated by comparing the model’s response to the expected answer, with scoring based on precision, recall, and F1.
-                        </p>
-                        <p><strong>Example:</strong></p>
-                        <ul>
-                            <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
-                            <li><strong>Expected Answer:</strong> "False"</li>
-                            <li><strong>Model Answer:</strong> "True"</li>
-                            <li><strong>Result:</strong> TP = 0, FP = 0, FN = 1</li>
-                        </ul>
-                    </div>
-
-                    <br>
-        
-                    <div class="collapsible">List Questions<span class="plus-minus">+</span></div>
-                    <div class="content">
-                        <p>
-                            List questions are evaluated by comparing individual items in the model’s response to the expected list. Each correctly identified item is considered a True Positive (TP), while missing items count as False Negatives (FN), and incorrect items as False Positives (FP).
-                        </p>
-                        <p><strong>Example:</strong></p>
-                        <ul>
-                            <li><strong>Question:</strong> "List the four chambers of the human heart."</li>
-                            <li><strong>Options:</strong></li>
-                            <ul>
-                                <li>A. right atrium</li>
-                                <li>B. top atrium</li>
-                                <li>C. right ventricle</li>
-                                <li>D. bottom ventricle</li>
-                                <li>E. left atrium</li>
-                                <li>F. left ventricle</li>
-                            </ul>
-                            <li><strong>Expected Answer:</strong> "A. right atrium, C. right ventricle, E. left atrium, F.left ventricle."</li>
-                            <li><strong>Model Answer:</strong> "A. Right atrium, B. top atrium, C. right ventricle, E. left atrium."</li>
-                            <li><strong>Result:</strong> TP = 3, FP = 1, FN = 1</li>
-                        </ul>
-                    </div>
-
-                    <br>
-        
-                    <div class="collapsible">Multiple Choice Questions<span class="plus-minus">+</span></div>
-                    <div class="content">
-                        <p>
-                            Multiple-choice questions are scored by checking if the selected option matches the correct answer. An incorrect selection counts as a False Positive (FP), and a failure to answer or an irrelevant response counts as a False Negative (FN).
-                        </p>
-                        <p><strong>Example:</strong></p>
-                        <ul>
-                            <li><strong>Question:</strong> "Which of the following is not a symptom of diabetes?"</li>
-                            <li><strong>Options:</strong></li>
-                            <ul>
-                                <li>A. Increased thirst</li>
-                                <li>B. Frequent urination</li>
-                                <li>C. Blurred vision</li>
-                                <li>D. High fever</li>
-                            </ul>
-                            <li><strong>Expected Answer:</strong> "D. High fever"</li>
-                            <li><strong>Model Answer:</strong> "B. Frequent urination"</li>
-                            <li><strong>Result:</strong> TP = 0, FP = 1, FN = 0</li>
-                        </ul>
-                    </div>
-
-                    <br>
-        
-                </div>
-        
-                <br>
-        
-                <div class="collapsible">Open-ended questions<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <p>
-                        Open-ended questions scoring is divided into two key levels of semantic similarity:
-
-                        <div class="collapsible">Exact Match (Full Points)<span class="plus-minus">+</span></div>
+                        <div class="collapsible">Closed-ended questions<span class="plus-minus">+</span></div>
                         <div class="content">
+                
+                            <p>
+                                Closed-ended questions include True/False, list, and multiple-choice formats. These are evaluated using the <strong>F1 score</strong> and a penalty system for factually inaccurate answers.
+                            </p>
+                
+                            <h3>F1 Score Definition</h3>
+                            <p>The F1 score is the harmonic mean of <strong>precision</strong> and <strong>recall</strong>.</p>
                             <ul>
-                                <li><strong>Definition:</strong> Full points will be awarded if the model provides an exact match to the known ground truth answer.</li>
-                                <li><strong>Example:</strong>
-                                    <ul>
-                                        <li><strong>Question:</strong> "What is Laparoscopy?"</li>
-                                        <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                        <li><strong>Model Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                        <li><strong>Scoring:</strong> If the model returns exactly this answer, full points are awarded.</li>
-                                    </ul>
+                                <li><strong>Precision:</strong> The proportion of correctly predicted answers out of all predicted answers.
+                                    \[
+                                    \text{Precision} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Positives (FP)}}
+                                    \]
+                                </li>
+                                <li><strong>Recall:</strong> The proportion of correctly predicted answers out of all actual correct answers.
+                                    \[
+                                    \text{Recall} = \frac{\text{True Positives (TP)}}{\text{True Positives (TP)} + \text{False Negatives (FN)}}
+                                    \]
+                                </li>
+                                <li><strong>F1 Score:</strong> 
+                                    \[
+                                    \text{F1 Score} = \frac{2 \cdot \text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+                                    \]
                                 </li>
                             </ul>
-                        </div>
+                            
+                            <br>
 
-                    <br>
+                            <div class="collapsible">True/False Questions<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>
+                                    True/False questions are evaluated by comparing the model’s response to the expected answer, with scoring based on precision, recall, and F1.
+                                </p>
+                                <p><strong>Example:</strong></p>
+                                <ul>
+                                    <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
+                                    <li><strong>Expected Answer:</strong> "False"</li>
+                                    <li><strong>Model Answer:</strong> "True"</li>
+                                    <li><strong>Result:</strong> TP = 0, FP = 0, FN = 1</li>
+                                </ul>
+                            </div>
 
-                    <div class="collapsible">Full to Partial Semantic Match (Full to Partial Points)<span class="plus-minus">+</span></div>
-                        <div class="content">
-                            <ul>
-                                <li><strong>Definition:</strong> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms). ROGUE and BLEU scores will be calculated for all generated-reference QA response pairs and, <b>in cases where automated metrics may yield uncertain or inconsistent scores, human annotators will be employed in conjuction with those scores along with the semantic similarity scores described below to review and normalize the evaluation. </b></li>
-                                
-                                <li><strong>Scoring for Semantic Answer Matching:</strong>
-                                    <p>
-                                        The semantic similarity score combines word-level, sentence-level, and paragraph-level similarity. Each similarity level is calculated using embeddings and cosine similarity, and the final score is computed as a weighted sum of these individual scores:
-                                    </p>
-                                    <div style="background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd;">
-                                        \[
-                                        \text{Semantic Match Score} = w_{word} \cdot \text{BERTScore}_{word} + w_{sentence} \cdot \text{CosineSim}_{sentence} + w_{paragraph} \cdot \text{CosineSim}_{paragraph}
-                                        \]
-                                        Where:
-                                        <ul>
-                                            <li>
-                                                \(w_{word}, w_{sentence}, w_{paragraph}\) are weights that sum to 1.
-                                            </li>
-                                            <li>
-                                                \(\text{BERTScore}_{word}\): Mean pooling of word embeddings obtained from the model output using:
-                                                \[
-                                                E_{\text{sentence}} = \frac{\sum_{i=1}^{T} E_{\text{token}_i} \cdot \text{Mask}_i}{\sum_{i=1}^{T} \text{Mask}_i}
-                                                \]
-                                                Where:
-                                                <ul>
-                                                    <li>\(E_{\text{token}_i}\) is the embedding for the \(i\)-th token.</li>
-                                                    <li>\(\text{Mask}_i\) is the attention mask for the \(i\)-th token to exclude padding tokens.</li>
-                                                    <li>\(T\) is the total number of tokens.</li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                \(\text{CosineSim}_{sentence}\): Cosine similarity between corresponding sentence embeddings \(E_x\) and \(E_y\), calculated as:
-                                                \[
-                                                \text{CosineSimilarity}(E_x, E_y) = \frac{E_x \cdot E_y}{\|E_x\| \|E_y\|}
-                                                \]
-                                                Where:
-                                                <ul>
-                                                    <li>\(E_x \cdot E_y\) is the dot product of the embeddings.</li>
-                                                    <li>\(\|E_x\|\) and \(\|E_y\|\) are the magnitudes of the embeddings.</li>
-                                                </ul>
-                                                <p>Once cosine similarity is computed for each corresponding sentence pair in the generated and reference answers, the aggregated sentence-level similarity is obtained by averaging all pairwise similarities:</p>
-                                                \[
-                                                \text{CosineSim}_{\text{sentence}} = \frac{1}{N} \sum_{i=1}^{N} \text{CosineSimilarity}(E_{x_i}, E_{y_i})
-                                                \]
-                                                Where \(N\) is the number of sentences in the generated and reference answers.
-                                            </li>
-                                            <li>
-                                                \(\text{CosineSim}_{paragraph}\): Cosine similarity between the full answer embeddings, calculated as:
-                                                \[
-                                                \text{CosineSimilarity}(E_{\text{paragraph, gen}}, E_{\text{paragraph, ref}}) = \frac{E_{\text{paragraph, gen}} \cdot E_{\text{paragraph, ref}}}{\|E_{\text{paragraph, gen}}\| \|E_{\text{paragraph, ref}}\|}
-                                                \]
-                                                Where:
-                                                <ul>
-                                                    <li>\(E_{\text{paragraph, gen}}\) and \(E_{\text{paragraph, ref}}\) are the paragraph embeddings obtained by mean pooling over all token embeddings in the generated and reference answers, respectively:</li>
-                                                    \[
-                                                    E_{\text{paragraph}} = \frac{\sum_{i=1}^{T} E_{\text{token}_i} \cdot \text{Mask}_i}{\sum_{i=1}^{T} \text{Mask}_i}
-                                                    \]
-                                                    <li>\(T\) is the total number of tokens in the paragraph.</li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                        
-                                    <p>The final score is determined as follows:</p>
+                            <br>
+                
+                            <div class="collapsible">List Questions<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>
+                                    List questions are evaluated by comparing individual items in the model’s response to the expected list. Each correctly identified item is considered a True Positive (TP), while missing items count as False Negatives (FN), and incorrect items as False Positives (FP).
+                                </p>
+                                <p><strong>Example:</strong></p>
+                                <ul>
+                                    <li><strong>Question:</strong> "List the four chambers of the human heart."</li>
+                                    <li><strong>Options:</strong></li>
                                     <ul>
-                                        <li><strong>Full Match:</strong> If the semantic match score exceeds the semantic similarity threshold (0.9), full points are awarded.</li>
-                                        <li><strong>Partial Match:</strong> If the semantic match score lies between two thresholds of no semantic similarity and full semantic similarity (0.4 to 0.9), partial points are awarded using a linear interpolation:
-                                            \[
-                                            \text{Partial Points} = \frac{\text{Semantic Match Score} - \text{Lower Threshold}}{\text{Full Threshold} - \text{Lower Threshold}} \times \text{Max Points}
-                                            \]
+                                        <li>A. right atrium</li>
+                                        <li>B. top atrium</li>
+                                        <li>C. right ventricle</li>
+                                        <li>D. bottom ventricle</li>
+                                        <li>E. left atrium</li>
+                                        <li>F. left ventricle</li>
+                                    </ul>
+                                    <li><strong>Expected Answer:</strong> "A. right atrium, C. right ventricle, E. left atrium, F.left ventricle."</li>
+                                    <li><strong>Model Answer:</strong> "A. Right atrium, B. top atrium, C. right ventricle, E. left atrium."</li>
+                                    <li><strong>Result:</strong> TP = 3, FP = 1, FN = 1</li>
+                                </ul>
+                            </div>
+
+                            <br>
+                
+                            <div class="collapsible">Multiple Choice Questions<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>
+                                    Multiple-choice questions are scored by checking if the selected option matches the correct answer. A correct selection is a True Positive (TP), an incorrect selection counts as a False Positive (FP), and a failure to answer or an irrelevant response counts as a False Negative (FN).
+                                </p>
+                                <p><strong>Example:</strong></p>
+                                <ul>
+                                    <li><strong>Question:</strong> "Which of the following is not a symptom of diabetes?"</li>
+                                    <li><strong>Options:</strong></li>
+                                    <ul>
+                                        <li>A. Increased thirst</li>
+                                        <li>B. Frequent urination</li>
+                                        <li>C. Blurred vision</li>
+                                        <li>D. High fever</li>
+                                    </ul>
+                                    <li><strong>Expected Answer:</strong> "D. High fever"</li>
+                                    <li><strong>Model Answer:</strong> "B. Frequent urination"</li>
+                                    <li><strong>Result:</strong> TP = 0, FP = 1, FN = 0</li>
+                                </ul>
+                            </div>
+
+                            <br>
+                
+                        </div>
+                
+                        <br>
+                
+                        <div class="collapsible">Open-ended questions<span class="plus-minus">+</span></div>
+                        <div class="content">
+                            <p>
+                                Open-ended questions scoring is divided into two key levels of semantic similarity:
+
+                                <div class="collapsible">Exact Match (Full Points)<span class="plus-minus">+</span></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>Full points will be awarded if the model provides an exact match to the known ground truth answer.</li>
+                                        <li><strong>Example:</strong>
+                                            <ul>
+                                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                                <li><strong>Model Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                                <li><strong>Scoring:</strong> If the model returns exactly this answer, full points are awarded.</li>
+                                            </ul>
                                         </li>
                                     </ul>
-                                </li>
+                                </div>
 
-                                <li><strong>Full Match Example:</strong>
-                                    <ul>
-                                        <li><strong>Question:</strong> "What is Laparoscopy?"</li>
-                                        <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                        <li><strong>Model Answer:</strong> "A minimally invasive surgery with a camera."</li>
-                                        <li><strong>Scoring:</strong> Full Points (1).</li>
-                                    </ul>
-                                </li>
+                            <br>
 
-                                <li><strong>Partial Match Example:</strong>
+                            <div class="collapsible">Full to Partial Semantic Match (Full to Partial Points)<span class="plus-minus">+</span></div>
+                                <div class="content">
                                     <ul>
-                                        <li><strong>Question:</strong> "What is Laparoscopy?"</li>
-                                        <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
-                                        <li><strong>Model Answer:</strong> "A procedure using a camera."</li>
-                                        <li><strong>Scoring:</strong> Partial Points (less than 1).</li> <!--TODO - update to have the semantic scoring number -->
+                                        <li> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms). ROGUE and BLEU scores will be calculated for all generated-reference QA response pairs and, <b>in cases where automated metrics may yield uncertain or inconsistent scores, human annotators will be employed in conjuction with those scores along with the semantic similarity scores described below to review and normalize the evaluation. </b></li>
+                                        
+                                        <li><strong>Scoring for Semantic Answer Matching:</strong>
+                                            <p>
+                                                The semantic similarity score combines word-level, sentence-level, and paragraph-level similarity. Each similarity level is calculated using embeddings and cosine similarity, and the final score is computed as a weighted sum of these individual scores:
+                                            </p>
+                                            <div style="background-color: #f9f9f9; padding: 10px; border: 1px solid #ddd;">
+                                                \[
+                                                \text{Semantic Match Score} = w_{word} \cdot \text{CosineSim}_{word} + w_{sentence} \cdot \text{CosineSim}_{sentence} + w_{paragraph} \cdot \text{CosineSim}_{paragraph}
+                                                \]
+                                                Where:
+                                                <ul>
+                                                    <li>
+                                                        \(w_{word}, w_{sentence}, w_{paragraph}\) are weights that sum to 1.
+                                                    </li>
+                                                    <li>
+                                                        \(\text{CosineSim}_{word}\): Mean pooling of word embeddings obtained from the model output using:
+                                                        \[
+                                                        E_{\text{sentence}} = \frac{\sum_{i=1}^{T} E_{\text{token}_i} \cdot \text{Mask}_i}{\sum_{i=1}^{T} \text{Mask}_i}
+                                                        \]
+                                                        Where:
+                                                        <ul>
+                                                            <li>\(E_{\text{token}_i}\) is the embedding for the \(i\)-th token.</li>
+                                                            <li>\(\text{Mask}_i\) is the attention mask for the \(i\)-th token to exclude padding tokens.</li>
+                                                            <li>\(T\) is the total number of tokens.</li>
+                                                        </ul>
+                                                    </li>
+                                                    <br>
+                                                    <br>
+                                                    <li>
+                                                        \(\text{CosineSim}_{sentence}\): Cosine similarity between corresponding sentence embeddings \(E_x\) and \(E_y\), calculated as:
+                                                        \[
+                                                        \text{CosineSimilarity}(E_x, E_y) = \frac{E_x \cdot E_y}{\|E_x\| \|E_y\|}
+                                                        \]
+                                                        Where:
+                                                        <ul>
+                                                            <li>\(E_x \cdot E_y\) is the dot product of the embeddings.</li>
+                                                            <li>\(\|E_x\|\) and \(\|E_y\|\) are the magnitudes of the embeddings.</li>
+                                                        </ul>
+                                                        <p>Once cosine similarity is computed for each corresponding sentence pair in the generated and reference answers, the aggregated sentence-level similarity is obtained by averaging all pairwise similarities:</p>
+                                                        \[
+                                                        \text{CosineSim}_{\text{sentence}} = \frac{1}{N} \sum_{i=1}^{N} \text{CosineSimilarity}(E_{x_i}, E_{y_i})
+                                                        \]
+                                                        Where \(N\) is the number of sentences in the generated and reference answers.
+                                                    </li>
+                                                    <br>
+                                                    <br>
+                                                    <li>
+                                                        \(\text{CosineSim}_{paragraph}\): Cosine similarity between the full answer embeddings, calculated as:
+                                                        \[
+                                                        \text{CosineSimilarity}(E_{\text{paragraph, gen}}, E_{\text{paragraph, ref}}) = \frac{E_{\text{paragraph, gen}} \cdot E_{\text{paragraph, ref}}}{\|E_{\text{paragraph, gen}}\| \|E_{\text{paragraph, ref}}\|}
+                                                        \]
+                                                        Where:
+                                                        <ul>
+                                                            <li>\(E_{\text{paragraph, gen}}\) and \(E_{\text{paragraph, ref}}\) are the paragraph embeddings obtained by mean pooling over all token embeddings in the generated and reference answers, respectively:</li>
+                                                            \[
+                                                            E_{\text{paragraph}} = \frac{\sum_{i=1}^{T} E_{\text{token}_i} \cdot \text{Mask}_i}{\sum_{i=1}^{T} \text{Mask}_i}
+                                                            \]
+                                                            <li>\(T\) is the total number of tokens in the paragraph.</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                
+                                            <p>The final score is determined as follows:</p>
+                                            <ul>
+                                                <li><strong>Full Match:</strong> If the semantic match score exceeds the semantic similarity threshold (0.9), full points are awarded.</li>
+                                                <li><strong>Partial Match:</strong> If the semantic match score lies between two thresholds of no semantic similarity and full semantic similarity (0.4 to 0.9), partial points are awarded using a linear interpolation:
+                                                    \[
+                                                    \text{Partial Points} = \frac{\text{Semantic Match Score} - \text{Lower Threshold}}{\text{Full Threshold} - \text{Lower Threshold}} \times \text{Max Points}
+                                                    \]
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li><strong>Full Match Example:</strong>
+                                            <ul>
+                                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                                <li><strong>Model Answer:</strong> "A minimally invasive surgery with a camera."</li>
+                                                <li><strong>Scoring:</strong> Full Points (1).</li>
+                                            </ul>
+                                        </li>
+
+                                        <li><strong>Partial Match Example:</strong>
+                                            <ul>
+                                                <li><strong>Question:</strong> "What is Laparoscopy?"</li>
+                                                <li><strong>Expected Answer:</strong> "A minimally invasive surgical procedure using a camera."</li>
+                                                <li><strong>Model Answer:</strong> "A procedure using a camera."</li>
+                                                <li><strong>Scoring:</strong> Partial Points (less than 1).</li> <!--TODO - update to have the semantic scoring number -->
+                                            </ul>
+                                        </li>
                                     </ul>
-                                </li>
-                            </ul>
+                                </div>
+
+                            <br>
+                            </p>
+
                         </div>
 
-                    <br>
-                    </p>
 
-                </div>
-
-
-            </div>
-
-        </section>
-
-        <section>
-            <h2>Rules and Participation Requirements</h2>
-            <div class="collapsible-container">
-            
-                <div class="collapsible">Submission Format<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>Participants are not required to submit their models. However, they must submit the <b>evaluation metrics and the system outputs generated using the official script provided by the organizers and a system descriptions.</b></li>
-                        <li>Submissions <b>must</b> include:
-                            <ul>
-                                <li>The evaluation metrics output from the provided script.</li>
-                                <li>The system outputs generated using the official script</li>
-                                <li>A detailed description of the system approach, including the methods, training data, configurations, and techniques used to achieve the results.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <br>
-            
-                <div class="collapsible">Model Transparency<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>Participants are required to provide clear documentation about:
-                            <ul>
-                                <li>The methods and techniques used, including any training data, preprocessing steps, fine-tuning strategies, and specific algorithms.</li>
-                                <li>Any prompts, prompt engineering, or inference strategies employed.</li>
-                            </ul>
-                        </li>
-                        <li>This information will be used to ensure transparency and promote openness within the competition but will not affect leaderboard rankings.</li>
-                    </ul>
-                </div>
-
-                <br>
-            
-                <div class="collapsible">Training and Data Use<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>Participants are free to use any methods, models, or data sources to achieve the best results.</li>
-                        <li>There are no restrictions on the choice of training data, models, or tools. Participants can combine datasets, use proprietary or private data, and leverage any strategies or algorithms to maximize performance.</li>
-                        <li><strong>Responsibility:</strong> Participants must ensure their approach complies with all applicable legal and ethical standards regarding data usage and methodology.</li>
-                    </ul>
-                </div>
-
-                <br>
-            
-                <div class="collapsible">Submission Limits<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>Each participant or team may submit a maximum of three times for consideration on the leaderboard.</li>
-                        <li>Each submission must reflect a distinct system or approach.</li>
-                    </ul>
-                </div>
-
-                <br>
-            
-                <div class="collapsible">Leaderboard Ranking<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>Submissions will be ranked on the official leaderboard based solely on the evaluation metrics generated by the provided script.</li>
-                        <li>The leaderboard will reflect scores based on exact matches, semantic matches, partial matches, and penalize factually incorrect responses.</li>
-                        <li>No distinction will be made between submissions using public or proprietary methods in the rankings. All valid submissions will appear on the leaderboard based on their scores.</li>
-                    </ul>
-                </div>
-
-                <br>
-            
-                <div class="collapsible">Use of ClinIQLink Dataset<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>The fully annotated ClinIQLink dataset will be released publicly for participants to use for <b>evaluation purposes only</b>, finetuning over the dataset is not permitted.</li>
-                        <li>Participants may use any internal or external datasets, any retrieval methods, any methods to refine models or provide context to questions, or any combination thereof to achieve the best results.</li>
-                        <li>Evaluation must be conducted using the official script provided to ensure consistency in scoring.</li>
-                    </ul>
-                </div>
-
-                <br>
-            
-                <div class="collapsible">Evaluation Requirements<span class="plus-minus">+</span></div>
-                <div class="content">
-                    <ul>
-                        <li>Participants are required to use the official evaluation script provided by the organizers to generate their metrics.</li>
-                        <li>Submissions must strictly adhere to the output format specified by the script to ensure comparability across all entries.</li>
-                    </ul>
+                    </div>
+                
                 </div>
             
-            </div>
-        </section>
 
-        <section>
-            <h2>Timeline</h2>
-            <p>Timeline for ClinIQLink at BioNLP Workshop at ACL 2025:</p>
         
-            <div class="timeline-container" id="timeline">
-                <!-- Month Labels -->
-                <div class="month-label" style="left: 0%;" id="label-Jan">Jan</div>
-                <div class="month-label" style="left: 0%;" id="label-Feb">Feb</div>
-                <div class="month-label" style="left: 0%;" id="label-Mar">Mar</div>
-                <div class="month-label" style="left: 0%;" id="label-Apr">Apr</div>
-                <div class="month-label" style="left: 0%;" id="label-May">May</div>
-                <div class="month-label" style="left: 0%;" id="label-Jun">Jun</div>
-                <div class="month-label" style="left: 0%;" id="label-Jul">Jul</div>
-                <div class="month-label" style="left: 0%;" id="label-Aug">Aug</div>
+
+        </section>
+
+        <section>
+            <div class="collapsible"><h2>Rules and Participation Requirements</h2><span class="plus-minus">+</span></div>
+                    <div class="content"> <!--style="display: block;"-->
+                        <div class="collapsible-container">
+                            <div class="collapsible">Submission Format<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>Participants are not required to submit their models. However, they must submit the <b>evaluation metrics and the system outputs generated using the official script provided by the organizers and a system descriptions.</b></li>
+                                    <li>Submissions <b>must</b> include:
+                                        <ul>
+                                            <li>The evaluation metrics output from the provided script.</li>
+                                            <li>The system outputs generated using the official script</li>
+                                            <li>A detailed description of the system approach, including the methods, training data, configurations, and techniques used to achieve the results.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
             
-                <!-- Events -->
-                <div class="event-box top" id="event-first_call">
-                    <div class="event-date">January 15, 2025</div>
-                    First Call for Participation
-                </div>
-                <div class="event-box top" id="event-release">
-                    <div class="event-date">February 15, 2025</div>
-                    Release of Testing Dataset and Testing Framework
-                </div>
-                <div class="event-box top" id="event-system_sub">
-                    <div class="event-date">March 18, 2025</div>
-                    System Submission Deadline
-                </div>
-                <div class="event-box bottom" id="event-paper_sub">
-                    <div class="event-date">March 20, 2025</div>
-                    Papers Submission Deadline
-                </div>
-                <div class="event-box top" id="event-notif">
-                    <div class="event-date">April 20, 2025</div>
-                    Notification of Acceptance
-                </div>
-                <div class="event-box top" id="event-cam">
-                    <div class="event-date">May 20, 2025</div>
-                    Camera Ready Papers Due
-                </div>
-                <div class="event-box top" id="event-record">
-                    <div class="event-date">July 7, 2025</div>
-                    Pre-recorded Video Due
-                </div>
-                <div class="event-box bottom" id="event-BioNLP">
-                    <div class="event-date">July 31, 2025</div>
-                    BioNLP Workshop Date (at ACL 2025)
-                </div>
-                <!-- Current Date Marker -->
-                <div class="current-date-marker" id="current-date"></div>
+                            <br>
+                        
+                            <div class="collapsible">Model Transparency<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>Participants are required to provide clear documentation about:
+                                        <ul>
+                                            <li>The methods and techniques used, including any training data, preprocessing steps, fine-tuning strategies, and specific algorithms.</li>
+                                            <li>Any prompts, prompt engineering, or inference strategies employed.</li>
+                                        </ul>
+                                    </li>
+                                    <li>This information will be used to ensure transparency and promote openness within the competition but will not affect leaderboard rankings.</li>
+                                </ul>
+                            </div>
+            
+                            <br>
+                        
+                            <div class="collapsible">Training and Data Use<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>Participants are free to use any methods, models, or data sources to achieve the best results.</li>
+                                    <li>There are no restrictions on the choice of training data, models, or tools. Participants can combine datasets, use proprietary or private data, and leverage any strategies or algorithms to maximize performance.</li>
+                                    <li><strong>Responsibility:</strong> Participants must ensure their approach complies with all applicable legal and ethical standards regarding data usage and methodology.</li>
+                                </ul>
+                            </div>
+            
+                            <br>
+                        
+                            <div class="collapsible">Submission Limits<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>Each participant or team may submit a maximum of three times for consideration on the leaderboard.</li>
+                                    <li>Each submission must reflect a distinct system or approach.</li>
+                                </ul>
+                            </div>
+            
+                            <br>
+                        
+                            <div class="collapsible">Leaderboard Ranking<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>Submissions will be ranked on the official leaderboard based solely on the evaluation metrics generated by the provided script.</li>
+                                    <li>The leaderboard will reflect scores based on exact matches, semantic matches, partial matches, and penalize factually incorrect responses.</li>
+                                    <li>No distinction will be made between submissions using public or proprietary methods in the rankings. All valid submissions will appear on the leaderboard based on their scores.</li>
+                                </ul>
+                            </div>
+            
+                            <br>
+                        
+                            <div class="collapsible">Use of ClinIQLink Dataset<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>The fully annotated ClinIQLink dataset will be released publicly for participants to use for <b>evaluation purposes only</b>, finetuning over the dataset is not permitted.</li>
+                                </ul>
+                            </div>
+            
+                            <br>
+                        
+                            <div class="collapsible">Evaluation Requirements<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <ul>
+                                    <li>Participants are required to use the official evaluation script provided by the organizers to generate their metrics.</li>
+                                    <li>Submissions must strictly adhere to the output format specified by the script to ensure comparability across all entries.</li>
+                                </ul>
+                            </div>
+                        
+                        </div>
+                    </div>
 
 
-            </div>
+            
+            
+        </section>
+
+        <section>
+            <div class="collapsible"><h2>Timeline</h2><span class="plus-minus">+</span></div>
+                    <div class="content"> 
+                        <p>Timeline for ClinIQLink at BioNLP Workshop at ACL 2025:</p>
+                        <div class="timeline-container" id="timeline">
+                            <!-- Month Labels -->
+                            <div class="month-label" style="left: 0%;" id="label-Jan">Jan</div>
+                            <div class="month-label" style="left: 0%;" id="label-Feb">Feb</div>
+                            <div class="month-label" style="left: 0%;" id="label-Mar">Mar</div>
+                            <div class="month-label" style="left: 0%;" id="label-Apr">Apr</div>
+                            <div class="month-label" style="left: 0%;" id="label-May">May</div>
+                            <div class="month-label" style="left: 0%;" id="label-Jun">Jun</div>
+                            <div class="month-label" style="left: 0%;" id="label-Jul">Jul</div>
+                            <div class="month-label" style="left: 0%;" id="label-Aug">Aug</div>
+                        
+                            <!-- Events -->
+                            <div class="event-box top" id="event-first_call">
+                                <div class="event-date">January 15, 2025</div>
+                                First Call for Participation
+                            </div>
+                            <div class="event-box top" id="event-release">
+                                <div class="event-date">February 15, 2025</div>
+                                Release of Testing Dataset and Testing Framework
+                            </div>
+                            <div class="event-box top" id="event-system_sub">
+                                <div class="event-date">March 18, 2025</div>
+                                System Submission Deadline
+                            </div>
+                            <div class="event-box bottom" id="event-paper_sub">
+                                <div class="event-date">March 20, 2025</div>
+                                Papers Submission Deadline
+                            </div>
+                            <div class="event-box top" id="event-notif">
+                                <div class="event-date">April 20, 2025</div>
+                                Notification of Acceptance
+                            </div>
+                            <div class="event-box top" id="event-cam">
+                                <div class="event-date">May 20, 2025</div>
+                                Camera Ready Papers Due
+                            </div>
+                            <div class="event-box top" id="event-record">
+                                <div class="event-date">July 7, 2025</div>
+                                Pre-recorded Video Due
+                            </div>
+                            <div class="event-box bottom" id="event-BioNLP">
+                                <div class="event-date">July 31, 2025</div>
+                                BioNLP Workshop Date (at ACL 2025)
+                            </div>
+
+                            <!-- Label for ACL region -->
+                            <div class="acl-label">ACL 2025 <br> July 27th 2025 - <br> August 01 2025</div>
+                            <!-- Semi-transparent region for ACL Conference -->
+                            <div class="acl-region" id="acl-region"></div>
+
+                            <!-- Current Date Marker -->
+                            <div class="current-date-marker" id="current-date"></div>
+                        </div>
+                </div>
 
             <!-- 
             <ul>
@@ -623,69 +698,165 @@
                 <li>July 7, 2025: Pre-recorded Video Due</li>
                 <li>July 31, 2025: BioNLP Workshop Date (at ACL 2025)</li>
             </ul>
-            <img src="Images/Timeline.png" alt="Timeline" style="width:100%; margin-top:20px;">-->
+            <img src="Images/Timeline.png" alt="Timeline" style="width:100%; margin-top:20px;">
+            -->
         </section>
 
         <section>
-            <h2>Research Directions</h2>
-            <p>See the following survey papers for ideas on research directions:</p>
-            <ul>
-                <li>
-                    <strong>Siren's Song in the AI Ocean: A Survey on Hallucination in Large Language Models</strong><br>
-                    <a href="https://arxiv.org/abs/2309.01219">https://arxiv.org/abs/2309.01219</a>
-                </li>
-                <li>
-                    <strong>Survey of Hallucination in Natural Language Generation</strong><br>
-                    <a href="https://dl.acm.org/doi/full/10.1145/3571730?casa_token=4qvgx-DzJjkAAAAA%3AOwIpns22iVZpou0ArNv0kCCt6_UXCKxivtJtN7V6YdMkX0VfeuNUG6aKi0mmdCblaZPPj75X_-46oQ">https://dl.acm.org/doi/full/10.1145/3571730</a>
-                </li>
-                <li>
-                    <strong>A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions</strong><br>
-                    <a href="https://arxiv.org/abs/2311.05232">https://arxiv.org/abs/2311.05232</a>
-                </li>
-                <li>
-                    <strong>A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models</strong><br>
-                    <a href="https://arxiv.org/abs/2401.01313">https://arxiv.org/abs/2401.01313</a>
-                </li>
-                <li>
-                    <strong>Hallucination of Multimodal Large Language Models: A Survey</strong><br>
-                    <a href="https://arxiv.org/abs/2404.18930">https://arxiv.org/abs/2404.18930</a>
-                </li>
-                <li>
-                    <strong>A Survey of Hallucination in Large Foundation Models</strong><br>
-                    <a href="https://arxiv.org/abs/2309.05922">https://arxiv.org/abs/2309.05922</a>
-                </li>
-                <li>
-                    <strong>A Survey on Hallucination in Large Vision-Language Models</strong><br>
-                    <a href="https://arxiv.org/abs/2402.00253">https://arxiv.org/abs/2402.00253</a>
-                </li>
-                <li>
-                    <strong>TruthfulQA: Measuring How Models Mimic Human Falsehoods</strong><br>
-                    <a href="https://arxiv.org/pdf/2109.07958">https://arxiv.org/pdf/2109.07958</a>
-                </li>
-                <li>
-                    <strong>TruthX: Alleviating Hallucinations by Editing Large Language Models in Truthful Space</strong><br>
-                    <a href="https://arxiv.org/pdf/2402.17811">https://arxiv.org/pdf/2402.17811</a>
-                </li>
-                <li>
-                    <strong>The Dawn After the Dark: An Empirical Study on Factuality Hallucination in Large Language Models</strong><br>
-                    <a href="https://arxiv.org/pdf/2401.03205">https://arxiv.org/pdf/2401.03205</a>
-                </li>
-            </ul>
+            <div class="collapsible"><h2>Research Directions</h2><span class="plus-minus">+</span></div>
+                    <div class="content">  <!--style="display: block;"-->
+                        <div class="collapsible"><strong>LLM Hallucination Detection</strong><span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>See the following survey papers for ideas on research directions:</p>
+                                <ul>
+                                    <li>
+                                        <strong>Siren's Song in the AI Ocean: A Survey on Hallucination in Large Language Models</strong><br>
+                                        <a href="https://arxiv.org/abs/2309.01219">https://arxiv.org/abs/2309.01219</a>
+                                    </li>
+                                    <li>
+                                        <strong>Survey of Hallucination in Natural Language Generation</strong><br>
+                                        <a href="https://dl.acm.org/doi/full/10.1145/3571730?casa_token=4qvgx-DzJjkAAAAA%3AOwIpns22iVZpou0ArNv0kCCt6_UXCKxivtJtN7V6YdMkX0VfeuNUG6aKi0mmdCblaZPPj75X_-46oQ">https://dl.acm.org/doi/full/10.1145/3571730</a>
+                                    </li>
+                                    <li>
+                                        <strong>A Survey on Hallucination in Large Language Models: Principles, Taxonomy, Challenges, and Open Questions</strong><br>
+                                        <a href="https://arxiv.org/abs/2311.05232">https://arxiv.org/abs/2311.05232</a>
+                                    </li>
+                                    <li>
+                                        <strong>A Comprehensive Survey of Hallucination Mitigation Techniques in Large Language Models</strong><br>
+                                        <a href="https://arxiv.org/abs/2401.01313">https://arxiv.org/abs/2401.01313</a>
+                                    </li>
+                                    <li>
+                                        <strong>Hallucination of Multimodal Large Language Models: A Survey</strong><br>
+                                        <a href="https://arxiv.org/abs/2404.18930">https://arxiv.org/abs/2404.18930</a>
+                                    </li>
+                                    <li>
+                                        <strong>A Survey of Hallucination in Large Foundation Models</strong><br>
+                                        <a href="https://arxiv.org/abs/2309.05922">https://arxiv.org/abs/2309.05922</a>
+                                    </li>
+                                    <li>
+                                        <strong>A Survey on Hallucination in Large Vision-Language Models</strong><br>
+                                        <a href="https://arxiv.org/abs/2402.00253">https://arxiv.org/abs/2402.00253</a>
+                                    </li>
+                                    <li>
+                                        <strong>TruthfulQA: Measuring How Models Mimic Human Falsehoods</strong><br>
+                                        <a href="https://arxiv.org/pdf/2109.07958">https://arxiv.org/pdf/2109.07958</a>
+                                    </li>
+                                    <li>
+                                        <strong>TruthX: Alleviating Hallucinations by Editing Large Language Models in Truthful Space</strong><br>
+                                        <a href="https://arxiv.org/pdf/2402.17811">https://arxiv.org/pdf/2402.17811</a>
+                                    </li>
+                                    <li>
+                                        <strong>The Dawn After the Dark: An Empirical Study on Factuality Hallucination in Large Language Models</strong><br>
+                                        <a href="https://arxiv.org/pdf/2401.03205">https://arxiv.org/pdf/2401.03205</a>
+                                    </li>
+                                </ul>
+                            
+                            </div>
+                        <br>
+                        <div class="collapsible"><strong>Retrieval Augmented Generation</strong><span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>Retrieval-Augmented Generation (RAG) combines large language models with external retrieval mechanisms to enhance factual accuracy and mitigate hallucinations. The following papers explore various aspects of RAG:</p>
+                                <ul>
+                                    <li>
+                                        <strong>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</strong><br>
+                                        <a href="https://arxiv.org/abs/2005.11401">https://arxiv.org/abs/2005.11401</a><br>
+                                    </li>
+                                    <li>
+                                        <strong>Retrieval-Augmented Generation for Large Language Models: A Survey</strong><br>
+                                        <a href="https://arxiv.org/abs/2312.10997">https://arxiv.org/abs/2312.10997</a><br>
+                                    </li>
+                                    <li>
+                                        <strong>Incorporating Retrieval into Generation Models</strong><br>
+                                        <a href="https://arxiv.org/abs/2406.13249">https://arxiv.org/abs/2406.13249</a><br>
+                                    </li>
+                                    <li>
+                                        <strong>A Comprehensive Survey of Retrieval-Augmented Generation</strong><br>
+                                        <a href="https://arxiv.org/abs/2410.12837">https://arxiv.org/abs/2410.12837</a><br>
+                                    </li>
+                                </ul>
+                            </div>
+                        <br>
+                        <div class="collapsible"><strong>Medical QA Datasets</strong><span class="plus-minus">+</span></div>
+                        <div class="content">
+                            <p>Key datasets commonly used for Medical Question Answering research involving Large Language Models include:</p>
+                            <ul>
+                                <li>
+                                    <strong>MultiMedQA</strong><br>
+                                    <a href="https://arxiv.org/abs/2212.13138">https://arxiv.org/abs/2212.13138</a>
+                                </li>
+                                <li>
+                                    <strong>MedQA</strong><br>
+                                    <a href="https://arxiv.org/abs/2009.13081">https://arxiv.org/abs/2009.13081</a>
+                                </li>
+                                <li>
+                                    <strong>MedMCQA</strong><br>
+                                    <a href="https://arxiv.org/abs/2203.14371">https://arxiv.org/abs/2203.14371</a>
+                                </li>
+                                <li>
+                                    <strong>PubMedQA</strong><br>
+                                    <a href="https://pubmedqa.github.io/">https://pubmedqa.github.io/</a>
+                                </li>
+                                <li>
+                                    <strong>BioASQ</strong><br>
+                                    <a href="https://www.bioasq.org/">https://www.bioasq.org/</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <br>
+                        <div class="collapsible"><strong>Medical QA Models</strong><span class="plus-minus">+</span></div>
+                        <div class="content">
+                            <ul>
+                                <li>
+                                    <strong>Med-PaLM 2</strong><br>
+                                    <a href="https://arxiv.org/abs/2305.09617" target="_blank">https://arxiv.org/abs/2305.09617</a>
+                                </li>
+                                <li>
+                                    <strong>PMC-LLaMA</strong><br>
+                                    <a href="https://arxiv.org/abs/2304.14454" target="_blank">https://arxiv.org/abs/2304.14454</a>
+                                </li>
+                                <li>
+                                    <strong>Integrating UMLS Knowledge into LLMs</strong><br>
+                                    <a href="https://arxiv.org/abs/2310.02778" target="_blank">https://arxiv.org/abs/2310.02778</a>
+                                </li>
+                                <li>
+                                    <strong>Exploring the Landscape of LLMs in Medical QA</strong><br>
+                                    <a href="https://arxiv.org/abs/2310.07225" target="_blank">https://arxiv.org/abs/2310.07225</a>
+                                </li>
+                                <li>
+                                    <strong>Hugging Face Medical QA Leaderboard</strong><br>
+                                    <a href="https://huggingface.co/blog/leaderboard-medicalllm" target="_blank">https://huggingface.co/blog/leaderboard-medicalllm</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+
+                    </div>
+            
         </section>
 
         <section>
-            <h2>Support and FAQs</h2>
-            <p>Coming soon</p>
+            <div class="collapsible"><h2>Support and FAQs</h2><span class="plus-minus">+</span></div>
+                    <div class="content"> <!--style="display: block;"-->
+                        <div class="collapsible"><strong>Support Contact</strong><span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>For all questions involving the shared task, please contact <strong>Brandon Colelough</strong></p>
+                                <p>Email: <a href="mailto:brandon.colelough@nih.giv">brandon.colelough@nih.giv</a></p>
+                            </div>
+
+                        <br>
+
+                        <div class="collapsible"><strong>FAQs</strong><span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>Coming soon</p>
+                            </div>
+                    </div>
         </section>
 
         <section>
-            <h2>Result Reporting and Post-task Analysis</h2>
-            <p>Coming Soon</p>
-        </section>
-        <section>
-            <h2>Contact</h2>
-            <p>For all questions involving the shared task, please contact <strong>Brandon Colelough</strong></p>
-            <p>Email: <a href="mailto:brandon.colelough@nih.giv">brandon.colelough@nih.giv</a></p>
+            <div class="collapsible"><h2>Submission, Result Reporting and Post-task Analysis</h2> <span class="plus-minus">+</span></div>
+                    <div class="content"> <!--style="display: block;"-->
+                        <p>Coming Soon</p>
+                    </div>
         </section>
         <!--
         <section>
@@ -703,28 +874,29 @@
     // Define start and end dates for the timeline
     const timelineStart = new Date('2024-12-31');
     const timelineEnd = new Date('2025-08-05');
-    const totalDuration = timelineEnd - timelineStart;
+    const totalDurationInDays = (timelineEnd - timelineStart) / (1000 * 60 * 60 * 24); // Total duration in days
 
-    // Define month data with IDs and dates
+    // Define month data with IDs and number of days in each month
     const months = [
-        { id: 'label-Jan', date: new Date('2025-01-01') },
-        { id: 'label-Feb', date: new Date('2025-02-01') },
-        { id: 'label-Mar', date: new Date('2025-03-01') },
-        { id: 'label-Apr', date: new Date('2025-04-01') },
-        { id: 'label-May', date: new Date('2025-05-01') },
-        { id: 'label-Jun', date: new Date('2025-06-01') },
-        { id: 'label-Jul', date: new Date('2025-07-01') },
-        { id: 'label-Aug', date: new Date('2025-08-01') }
+        { id: 'label-Jan', startDate: new Date('2025-01-01'), days: 31 },
+        { id: 'label-Feb', startDate: new Date('2025-02-01'), days: 28 }, // Update to 29 for leap year if necessary
+        { id: 'label-Mar', startDate: new Date('2025-03-01'), days: 31 },
+        { id: 'label-Apr', startDate: new Date('2025-04-01'), days: 30 },
+        { id: 'label-May', startDate: new Date('2025-05-01'), days: 31 },
+        { id: 'label-Jun', startDate: new Date('2025-06-01'), days: 30 },
+        { id: 'label-Jul', startDate: new Date('2025-07-01'), days: 31 },
+        { id: 'label-Aug', startDate: new Date('2025-08-01'), days: 5 } // Partial month ending on Aug 15
     ];
 
     // Function to dynamically position month labels on the timeline
-    months.forEach(month => {
-        const elapsedDuration = month.date - timelineStart;
-        const positionPercentage = (elapsedDuration / totalDuration) * 100;
+    let cumulativeDays = 0;
+    months.forEach((month) => {
+        const positionPercentage = (cumulativeDays / totalDurationInDays) * 100;
         const monthElement = document.getElementById(month.id);
         if (monthElement) {
             monthElement.style.left = `${positionPercentage}%`;
         }
+        cumulativeDays += month.days;
     });
 
     // Define event data with IDs and dates
@@ -739,24 +911,40 @@
         { id: 'event-BioNLP', date: new Date('2025-07-31') }
     ];
 
-    // Function to dynamically position events on the timeline
-    events.forEach(event => {
-        const elapsedDuration = event.date - timelineStart;
-        const positionPercentage = (elapsedDuration / totalDuration) * 100;
+    // Function to dynamically position events on the timeline (center alignment)
+    events.forEach((event) => {
+        const elapsedDays = (event.date - timelineStart) / (1000 * 60 * 60 * 24); // Days elapsed since start
+        const positionPercentage = (elapsedDays / totalDurationInDays) * 100;
         const eventElement = document.getElementById(event.id);
         if (eventElement) {
-            eventElement.style.left = `${positionPercentage}%`;
+            // Calculate left position and center-align the event box
+            const eventBoxWidth = 150 //eventElement.offsetWidth;
+            eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px)`;
         }
     });
 
     // Current Date Marker
     const currentDate = new Date();
     if (currentDate >= timelineStart && currentDate <= timelineEnd) {
-        const elapsedDuration = currentDate - timelineStart;
-        const positionPercentage = (elapsedDuration / totalDuration) * 100;
+        const elapsedDays = (currentDate - timelineStart) / (1000 * 60 * 60 * 24); // Days elapsed since start
+        const positionPercentage = (elapsedDays / totalDurationInDays) * 100;
         const currentMarker = document.getElementById('current-date');
         currentMarker.style.left = `${positionPercentage}%`;
     }
+
+    const aclStartDate = new Date('2025-07-27');
+    const aclEndDate = new Date('2025-08-01');
+    const aclStartDays = (aclStartDate - timelineStart) / (1000 * 60 * 60 * 24); // Days since timeline start
+    const aclEndDays = (aclEndDate - timelineStart) / (1000 * 60 * 60 * 24); // Days since timeline start
+    const aclStartPercentage = (aclStartDays / totalDurationInDays) * 100;
+    const aclEndPercentage = (aclEndDays / totalDurationInDays) * 100;
+    const aclRegionElement = document.getElementById('acl-region');
+
+    if (aclRegionElement) {
+        aclRegionElement.style.left = `${aclStartPercentage}%`;
+        aclRegionElement.style.width = `${aclEndPercentage - aclStartPercentage}%`;
+    }
+
 
     // Collapsible Sections
     const collapsibles = document.querySelectorAll(".collapsible");
@@ -774,6 +962,24 @@
             }
         });
     });
+
+     // Collapsible Sections
+    const collapsibles2 = document.querySelectorAll(".collapsible-2");
+    collapsibles2.forEach(button => {
+        button.addEventListener("click", () => {
+            button.classList.toggle("active");
+            const content = button.nextElementSibling;
+            const plusMinus = button.querySelector(".plus-minus-2");
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                plusMinus.textContent = "+";
+            } else {
+                content.style.display = "block";
+                plusMinus.textContent = "−";
+            }
+        });
+    });
+
 
 </script>
 
