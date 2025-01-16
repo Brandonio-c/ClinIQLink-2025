@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClinIQLink 2025 - LLM Lie Detector Test</title>
-    <link rel="icon" type="image/png" href="2012-logo.png">
+    <link rel="icon" type="image/svg+xml" href="Images/ClinIQLink-logo.svg">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -91,7 +91,7 @@
         .timeline-container {
             position: relative;
             width: 95%;
-            height: 400px;
+            height: 450px;
             margin-top: 0px;
             margin-bottom: 0px;
             margin-left: 0px;
@@ -103,8 +103,8 @@
 
         .event-box {
             position: absolute;
-            width: 150px;
-            padding: 10px;
+            width: 100px;
+            padding: 5px;
             background-color: white;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -114,7 +114,7 @@
         .event-box::after {
             content: "";
             position: absolute;
-            width: 2px;
+            width: 5px;
             height: 60px;
             background-color: #007bff;
         }
@@ -132,7 +132,7 @@
 
         .event-box.bottom {
             top: 100%;
-            transform: translateY(-342px); /* Move the box closer to the timeline */
+            transform: translateY(-392px); /* Move the box closer to the timeline */
         }
 
         .event-box.bottom::after {
@@ -165,7 +165,7 @@
             height: 60px; /* Adjust based on timeline height */
             background-color: rgba(0, 123, 255, 0.3); /* Blue with 20% opacity */
             border-top: 2px solid blue; /* Only show border at the top */
-            top: -65px; /* Adjust to vertically center it on the timeline */
+            top: -62px; /* Adjust to vertically center it on the timeline */
             width: calc(100% * ((new Date('2025-08-01') - new Date('2025-07-27')) / totalDuration)); /* Dynamic width based on date range */
             left: calc(100% * ((new Date('2025-07-27') - timelineStart) / totalDuration)); /* Position start of region */
             z-index: 1; /* Ensure it appears below the event boxes */
@@ -179,19 +179,18 @@
 
 
         .acl-label {
-    position: absolute;
-    top: -150px; /* Position the label above the ACL region */
-    left: 94%;
-    /* Calculate center of ACL region and offset by half the width of the label */
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: blue;
-    z-index: 2; /* Ensure it appears above the ACL region */
-    white-space: nowrap; /* Prevent text from wrapping */
-}
-
-
+            position: absolute;
+            top: -150px; /* Position the label above the ACL region */
+            left: 94%;
+            /* Calculate center of ACL region and offset by half the width of the label */
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: blue;
+            z-index: 2; /* Ensure it appears above the ACL region */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+    
         @media (max-width: 768px) {
             body {
                 font-size: 14px;
@@ -199,6 +198,28 @@
             header, footer {
                 padding: 10px;
             }
+        }
+
+        header button {
+        background-color: #3399ff; /* Slightly lighter blue */
+        color: white; 
+        border: 2px solid white; /* White border */
+        border-radius: 5px; 
+        padding: 10px 20px; 
+        cursor: pointer; 
+        font-size: 16px; 
+        font-weight: bold; 
+        margin-top: 10px; 
+        }
+
+        header button:hover {
+            background-color: #e6f7ff; /* Slightly lighter blue on hover */
+            color: #3399ff;
+            border-color: #ffffff; /* Keep the white border */
+        }
+
+        a {
+            text-decoration: none; /* Remove underline from link */
         }
        
     </style>
@@ -210,6 +231,9 @@
     <header>
         <h1>ClinIQLink 2025 - LLM Lie Detector Test</h1>
         <p>Evaluating Internal Model Knowledge Retrieval and Hallucinations</p>
+        <a href="https://www.codabench.org/competitions/5117/" target="_blank">
+            <button>View Challenge on Codalab</button>
+        </a>
     </header>
     <main>
         <section>
@@ -217,12 +241,26 @@
             <div class="collapsible"><h2>Task Overview</h2><span class="plus-minus">+</span></div>
                     <div class="content"> <!--style="display: block;"-->
                         <p>
-                            The objective of this task is to evaluate the effectiveness of generative models in producing factually accurate information. Participants will <b>submit their evaluation metrics to a leaderboard </b> using the official script provided by the organizers. The leaderboard will automatically rank submissions based on the reported results.
-                            
-                            Using a structured set of atomic question-answer pairs, the task will measure how well the models retrieve factually correct information. The benchmarking framework will pose well-defined, atomic questions to the models, requiring a single, precise response. These questions will assess the model's knowledge about fundamental medical concepts and its ability to avoid common pitfalls like hallucination or factual inaccuracies. Scoring will be based on the precision of the answers and will involve partial, full, or negative points based on accuracy. Full points will be awarded for exact or semantically equivalent answers, while incorrect answers or repeated factual errors on the same concept will result in negative scores.
-                            
-                            <b>Participants are encouraged to make their models public for transparency, but this will be optional.</b> This task focuses on knowledge retrieval from models and does not assess reasoning abilities like commonsense reasoning, temporal understanding, or logical consistency.
+                            The objective of ClinIQLink is to <b>evaluate the ability of generative models to produce factually accurate medical information</b>. Participants must <b>submit their models to CodaBench</b>, where the organizers will test and evaluate them through a semi-automated testing process. The leaderboard will rank submissions based solely on the accuracy of the knowledge retrieved by the submitted models.
+                        
+                            The task is designed to assess:
+                            <ul>
+                                <li>
+                                    <b>Knowledge Retrieval:</b> Using a novel dataset of atomic question-answer pairs, the task will measure how well generative models retrieve factually correct medical information. The evaluation will focus on fundamental medical concepts (aimed at the knowledge level of a General Practicioner (GP)), such as procedures, conditions, drugs, and diagnostics. Scoring will be based on precision, with full points awarded for exact or semantically equivalent answers. Incorrect or factually inaccurate responses will result in negative scores.
+                                </li>
+                            </ul>
+                        
+                            <b>Post-hoc Analysis:</b> While participants will be evaluated solely on their ability to provide factually accurate medical knowledge, the coordinators will conduct post-hoc analysis of the submitted models to identify and categorize hallucinations in the responses. This analysis will focus on understanding the origins of hallucinations, including:
+                            <ul>
+                                <li><b>Intrinsic:</b> Hallucinations caused by the model's internal representations.</li>
+                                <li><b>Extrinsic:</b> Hallucinations arising due to missing or incorrect external information.</li>
+                                <li><b>Other:</b> Hallucinations from unknown or hybrid causes.</li>
+                            </ul>
+                            The post-hoc findings will provide insights into the limitations of the models but will not impact the participants' scores.
+                        
+                            <b>Participation Requirements:</b> To be considered for acceptance, participants must submit a <b>short paper</b> outlining their novel model or method. The short paper must present innovative approaches or significant contributions to medical knowledge retrieval.  The shared task will utilize a <b>novel medical QA dataset that will not be made publicly available</b> to ensure the integrity of the evaluation process.
                         </p>
+                        
                     </div>
             
         </section>
@@ -231,8 +269,12 @@
 
             <div class="collapsible"><h2>Datasets</h2> <span class="plus-minus">+</span></div>
             <div class="content"><!--style="display: block;"-->
-                <p>The dataset provided for this task is a collection of factual, atomic question-answer pairs grounded in the medical domain, designed to align with the knowledge level of a General Practitioner (GP) Medical Doctor. These question-answer pairs cover core medical concepts such as procedures, conditions, drugs, and diagnostics. The dataset question-answer pair consist of the following five modalities: </p>
-            
+                <p>
+                    The dataset provided for this task is a <b>novel collection of factual, atomic question-answer pairs</b> grounded in the medical domain, designed to align with the knowledge level of a General Practitioner (GP) Medical Doctor. The dataset is generated with input from medical experts, and each question is supported by source documentation from medical textbooks to ensure accuracy.
+                
+                    The dataset covers core medical concepts, including procedures, conditions, drugs, and diagnostics, and consists of the following five modalities:
+                </p>
+                
                 <div class="collapsible-container">
             
                     <div class="collapsible">True/False <span class="plus-minus">+</span></div>
@@ -543,15 +585,24 @@
                             <div class="collapsible">Submission Format<span class="plus-minus">+</span></div>
                             <div class="content">
                                 <ul>
-                                    <li>Participants are not required to submit their models. However, they must submit the <b>evaluation metrics and the system outputs generated using the official script provided by the organizers and a system descriptions.</b></li>
-                                    <li>Submissions <b>must</b> include:
+                                    <li>
+                                        Participants are required to <b>submit their models to CodaBench</b>, where the organizers will test and evaluate the submissions through a semi-automated process. Participants are not required to make their submissions public; however, doing so is highly encouraged to promote transparency and reproducibility.
+                                    </li>
+                                    <li>
+                                        Submissions <b>must</b> include:
                                         <ul>
-                                            <li>The evaluation metrics output from the provided script.</li>
-                                            <li>The system outputs generated using the official script</li>
-                                            <li>A detailed description of the system approach, including the methods, training data, configurations, and techniques used to achieve the results.</li>
+                                            <li>The model uploaded to CodaBench for evaluation.</li>
+                                            <li>A detailed description of the system approach, including the methods, training data, configurations, and techniques used to develop the model.</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        Optional: 
+                                        <ul>
+                                            <li> Participants can make their models and approaches public to foster collaboration and transparency within the community.</li>
                                         </ul>
                                     </li>
                                 </ul>
+                                
                             </div>
             
                             <br>
@@ -606,7 +657,7 @@
                             <div class="collapsible">Use of ClinIQLink Dataset<span class="plus-minus">+</span></div>
                             <div class="content">
                                 <ul>
-                                    <li>The fully annotated ClinIQLink dataset will be released publicly for participants to use for <b>evaluation purposes only</b>, finetuning over the dataset is not permitted.</li>
+                                    <li>The fully annotated ClinIQLink dataset will <b> NOT</b> be released publicly for participants to use.</li>
                                 </ul>
                             </div>
             
@@ -645,23 +696,31 @@
                         
                             <!-- Events -->
                             <div class="event-box top" id="event-first_call">
-                                <div class="event-date">January 15, 2025</div>
+                                <div class="event-date">January 17, 2025</div>
                                 First Call for Participation
                             </div>
                             <div class="event-box top" id="event-release">
-                                <div class="event-date">February 15, 2025</div>
-                                Release of Testing Dataset and Testing Framework
+                                <div class="event-date">February 20, 2025</div>
+                                Release of Testing Dataset & Framework
                             </div>
                             <div class="event-box top" id="event-system_sub">
-                                <div class="event-date">March 18, 2025</div>
+                                <div class="event-date"> April 15, 2025</div>
                                 System Submission Deadline
                             </div>
-                            <div class="event-box bottom" id="event-paper_sub">
-                                <div class="event-date">March 20, 2025</div>
-                                Papers Submission Deadline
+                            <div class="event-box top" id="event-feedback">
+                                <div class="event-date"> April 25, 2025</div>
+                                Results Feedback Provided
                             </div>
-                            <div class="event-box top" id="event-notif">
-                                <div class="event-date">April 20, 2025</div>
+                            <div class="event-box bottom" id="event-paper_sub">
+                                <div class="event-date">May 05, 2025</div>
+                                Prelim Papers Submission Deadline
+                            </div>
+                            <div class="event-box top" id="event-paper_sub_final">
+                                <div class="event-date">May 15, 2025</div>
+                                Final Papers Submission Deadline
+                            </div>
+                            <div class="event-box bottom" id="event-notif">
+                                <div class="event-date">May 10, 2025</div>
                                 Notification of Acceptance
                             </div>
                             <div class="event-box top" id="event-cam">
@@ -866,7 +925,7 @@
         -->
     </main>
     <footer>
-        <p>&copy; 2025 NIH NLM LLM Lie Detector Task @ BioNLP @ ACL. All rights reserved.</p>
+        <p>&copy; 2025 NIH NLM - ClinIQLink - LLM Lie Detector Task @ BioNLP @ ACL. All rights reserved.</p>
     </footer>
 </body>
 
@@ -901,27 +960,102 @@
 
     // Define event data with IDs and dates
     const events = [
-        { id: 'event-first_call', date: new Date('2025-01-15') },
+        { id: 'event-first_call', date: new Date('2025-01-17') },
         { id: 'event-release', date: new Date('2025-02-15') },
-        { id: 'event-system_sub', date: new Date('2025-03-18') },
-        { id: 'event-paper_sub', date: new Date('2025-03-20') },
-        { id: 'event-notif', date: new Date('2025-04-20') },
+        { id: 'event-system_sub', date: new Date('2025-04-15') },
+        { id: 'event-feedback', date: new Date('2025-04-25') },
+        { id: 'event-paper_sub', date: new Date('2025-05-05') },
+        { id: 'event-paper_sub_final', date: new Date('2025-05-15') },
+        { id: 'event-notif', date: new Date('2025-05-10') },
         { id: 'event-cam', date: new Date('2025-05-20') },
         { id: 'event-record', date: new Date('2025-07-07') },
         { id: 'event-BioNLP', date: new Date('2025-07-31') }
     ];
 
-    // Function to dynamically position events on the timeline (center alignment)
+   // Function to dynamically position events on the timeline (center alignment)
     events.forEach((event) => {
         const elapsedDays = (event.date - timelineStart) / (1000 * 60 * 60 * 24); // Days elapsed since start
         const positionPercentage = (elapsedDays / totalDurationInDays) * 100;
         const eventElement = document.getElementById(event.id);
+
         if (eventElement) {
-            // Calculate left position and center-align the event box
-            const eventBoxWidth = 150 //eventElement.offsetWidth;
-            eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px)`;
+            const eventBoxWidth = 100; // eventElement.offsetWidth;
+
+            if (event.id === 'event-system_sub') {
+                // Move event-system_sub 3% to the left
+                eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px - 3%)`;
+
+                // Adjust the vertical line specifically for event-system_sub
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    #${event.id}::after {
+                        left: 90%;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            } else if (event.id === 'event-paper_sub') {
+                // Move Prelim Submission (event-paper_sub) 3% to the left
+                eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px - 3%)`;
+
+                // Adjust the vertical line specifically for event-paper_sub
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    #${event.id}::after {
+                        left: 90%;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            } else if (event.id === 'event-paper_sub_final') {
+                // Move Final Submission (event-paper_sub_final) 3% to the left
+                eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px - 2%)`;
+
+                // Adjust the vertical line specifically for event-paper_sub_final
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    #${event.id}::after {
+                        left: 75%;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            } else if (event.id === 'event-cam') {
+                // Move Camera Ready (event-cam) 3% to the right
+                eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px + 3%)`;
+
+                // Adjust the vertical line specifically for event-cam
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    #${event.id}::after {
+                        left: 10%;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            } else if (event.id === 'event-notif') {
+                // Move event-notif 3% to the right
+                eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px + 3%)`;
+
+                // Adjust the vertical line specifically for event-notif
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    #${event.id}::after {
+                        left: 10%;
+                    }
+                `;
+                document.head.appendChild(style);
+
+            } else {
+                // Standard centering for other events
+                eventElement.style.left = `calc(${positionPercentage}% - ${eventBoxWidth / 2}px)`;
+            }
         }
     });
+
+
+
+    
 
     // Current Date Marker
     const currentDate = new Date();
