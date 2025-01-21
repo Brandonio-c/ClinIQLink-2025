@@ -190,8 +190,41 @@
             z-index: 2; /* Ensure it appears above the ACL region */
             white-space: nowrap; /* Prevent text from wrapping */
         }
+        /* Organizers Section Styles */
+
+        .organizers {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .organizers div {
+            text-align: center;
+            width: 150px;
+        }
+
+        .organizers img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            image-rendering: auto; /* Smooth rendering for high-quality images */
+        }
+
+        .references li {
+            margin-bottom: 15px;
+            color: #212121;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
     
         @media (max-width: 768px) {
+            #timeline {
+                display: none;
+            }
             body {
                 font-size: 14px;
             }
@@ -241,7 +274,7 @@
             <div class="collapsible"><h2>Task Overview</h2><span class="plus-minus">+</span></div>
                     <div class="content"> <!--style="display: block;"-->
                         <p>
-                            The objective of ClinIQLink is to <b>evaluate the ability of generative models to produce factually accurate medical information</b>. Participants must <b>submit their models to CodaBench</b>, where the organizers will test and evaluate them through a semi-automated testing process. The leaderboard will rank submissions based solely on the accuracy of the knowledge retrieved by the submitted models.
+                            The objective of ClinIQLink is to <b>evaluate the ability of generative models to produce factually accurate medical information</b>. Participants must <b>submit their models to CodaBench</b>, <a href="#ref1">[1]</a>, where the organizers will test and evaluate them through a semi-automated testing process. The leaderboard will rank submissions based solely on the accuracy of the knowledge retrieved by the submitted models.
                         
                             The task is designed to assess:
                             <ul>
@@ -350,7 +383,7 @@
                         <div class="content">
                 
                             <p>
-                                Closed-ended questions include True/False, list, and multiple-choice formats. These are evaluated using the <strong>F1 score</strong> and a penalty system for factually inaccurate answers.
+                                Closed-ended questions include True/False, list, and multiple-choice formats. These are evaluated using the <strong>F1 score</strong> <a href="#ref2">[2]</a> and a penalty system for factually inaccurate answers.
                             </p>
                 
                             <h3>F1 Score Definition</h3>
@@ -468,7 +501,7 @@
                             <div class="collapsible">Full to Partial Semantic Match (Full to Partial Points)<span class="plus-minus">+</span></div>
                                 <div class="content">
                                     <ul>
-                                        <li> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms). ROUGE and BLEU scores will be calculated for all generated-reference QA response pairs and, <b>in cases where automated metrics may yield uncertain or inconsistent scores, human annotators will be employed in conjuction with those scores along with the semantic similarity scores described below to review and normalize the evaluation. </b></li>
+                                        <li> Full points will also be awarded if the model returns an answer that is semantically equivalent to the ground truth, even if phrased differently (e.g., using synonyms). BLEU <a href="#ref3">[3]</a>, ROUGE <a href="#ref4">[4]</a> and METEOR <a href="#ref5">[5]</a> scores will be calculated for all generated-reference QA response pairs and, <b>in cases where automated metrics may yield uncertain or inconsistent scores, human annotators will be employed in conjuction with those scores along with the semantic similarity scores described below to review and normalize the evaluation. </b></li>
                                         
                                         <li><strong>Scoring for Semantic Answer Matching:</strong>
                                             <p>
@@ -531,6 +564,11 @@
                                                     </li>
                                                 </ul>
                                             </div>
+
+                                            <p>
+                                                The word-level score will be calculated using a method similar to BERTScore <a href="#ref6">[6]</a>, which evaluates text generation using contextual embeddings. 
+                                                The sentence-level and paragraph-level scores will be computed in a manner inspired by SemScore <a href="#ref7">[7]</a>, which leverages semantic textual similarity for evaluating instruction-tuned large language models.
+                                            </p>
                                 
                                             <p>The final score is determined as follows:</p>
                                             <ul>
@@ -542,6 +580,7 @@
                                                 </li>
                                             </ul>
                                         </li>
+                                        
 
                                         <li><strong>Full Match Example:</strong>
                                             <ul>
@@ -579,20 +618,23 @@
         </section>
 
         <section>
-            <div class="collapsible"><h2>Rules and Participation Requirements</h2><span class="plus-minus">+</span></div>
+            <div class="collapsible"><h2>Submission, Rules and Participation Requirements</h2><span class="plus-minus">+</span></div>
                     <div class="content"> <!--style="display: block;"-->
                         <div class="collapsible-container">
                             <div class="collapsible">Submission Format<span class="plus-minus">+</span></div>
                             <div class="content">
+
+                                All participants will be invited to submit a paper describing their solution to be included in the <a href="https://aclanthology.org/venues/bionlp/" style="color: #0071bc; text-decoration: none;">Proceedings of the 24rd Workshop on Biomedical Natural Language Processing (BioNLP) at ACL 2025</a>
+
                                 <ul>
                                     <li>
-                                        Participants are required to <b>submit their models to CodaBench</b>, where the organizers will test and evaluate the submissions through a semi-automated process. Participants are not required to make their submissions public; however, doing so is highly encouraged to promote transparency and reproducibility.
+                                        Participants are required to <b>submit their models to CodaBench</b>, <a href="#ref1">[1]</a> where the organizers will test and evaluate the submissions through a semi-automated process. Participants are not required to make their submissions public; however, doing so is highly encouraged to promote transparency and reproducibility.
                                     </li>
                                     <li>
                                         Submissions <b>must</b> include:
                                         <ul>
-                                            <li>The model uploaded to CodaBench for evaluation.</li>
-                                            <li>A detailed description of the system approach, including the methods, training data, configurations, and techniques used to develop the model.</li>
+                                            <li>The model uploaded to CodaBench <a href="#ref1">[1]</a> for evaluation.</li>
+                                            <li>A detailed description of the system approach, including the methods, training data, configurations, and techniques used to develop the <b> novel model/method</b> in the form of a <b>short paper </b>.</li>
                                         </ul>
                                     </li>
                                     <li>
@@ -696,7 +738,7 @@
                         
                             <!-- Events -->
                             <div class="event-box top" id="event-first_call">
-                                <div class="event-date">January 17, 2025</div>
+                                <div class="event-date">January 21, 2025</div>
                                 First Call for Participation
                             </div>
                             <div class="event-box top" id="event-release">
@@ -744,21 +786,48 @@
                             <!-- Current Date Marker -->
                             <div class="current-date-marker" id="current-date"></div>
                         </div>
-                </div>
 
-            <!-- 
-            <ul>
-                <li>January 15, 2025: First Call for Participation</li>
-                <li>February 15, 2025: Release of Testing Dataset and Testing Framework</li>
-                <li>March 18, 2025: System Submission Deadline</li>
-                <li>March 20, 2025: Papers Submission Deadline</li>
-                <li>April 20, 2025: Notification of Acceptance</li>
-                <li>May 20, 2025: Camera Ready Papers Due</li>
-                <li>July 7, 2025: Pre-recorded Video Due</li>
-                <li>July 31, 2025: BioNLP Workshop Date (at ACL 2025)</li>
-            </ul>
-            <img src="Images/Timeline.png" alt="Timeline" style="width:100%; margin-top:20px;">
-            -->
+                        <ol style="font-size: 16px; line-height: 1.8; margin-left: 20px;">
+                            <li id="event-first_call">
+                                <strong>January 21, 2025:</strong> First Call for Participation
+                            </li>
+                            <li id="event-release">
+                                <strong>February 20, 2025:</strong> Release of Testing Dataset & Framework
+                            </li>
+                            <li id="event-system_sub">
+                                <strong>April 15, 2025:</strong> System Submission Deadline
+                            </li>
+                            <li id="event-feedback">
+                                <strong>April 25, 2025:</strong> Results Feedback Provided
+                            </li>
+                            <li id="event-paper_sub">
+                                <strong>May 05, 2025:</strong> Prelim Papers Submission Deadline
+                            </li>
+                            <li id="event-paper_sub_final">
+                                <strong>May 15, 2025:</strong> Final Papers Submission Deadline
+                            </li>
+                            <li id="event-notif">
+                                <strong>May 10, 2025:</strong> Notification of Acceptance
+                            </li>
+                            <li id="event-cam">
+                                <strong>May 20, 2025:</strong> Camera Ready Papers Due
+                            </li>
+                            <li id="event-record">
+                                <strong>July 07, 2025:</strong> Pre-recorded Video Due
+                            </li>
+                            <li id="event-BioNLP">
+                                <strong>July 31, 2025:</strong> BioNLP Workshop Date (at ACL 2025)
+                            </li>
+                        </ol>
+                        
+                        <!-- ACL Conference Region -->
+                        <p class="acl-label" style="font-weight: bold; margin-top: 20px;">
+                            ACL 2025: July 27th 2025 - August 01 2025
+                        </p>
+    
+                        <b>All deadlines are 11:59 PM ("Anywhere on Earth")</b>
+                </div>
+                
         </section>
 
         <section>
@@ -912,17 +981,56 @@
         </section>
 
         <section>
-            <div class="collapsible"><h2>Submission, Result Reporting and Post-task Analysis</h2> <span class="plus-minus">+</span></div>
+            <div class="collapsible"><h2>Result Reporting and Post-task Analysis</h2> <span class="plus-minus">+</span></div>
                     <div class="content"> <!--style="display: block;"-->
                         <p>Coming Soon</p>
                     </div>
         </section>
-        <!--
         <section>
-            <h2>Conclusion</h2>
-            <p>The LLM Lie Detector Test using Knowledge Retrieval is aimed at evaluating the factual accuracy of generative models, particularly in the medical domain. Participants will be provided a comprehensive framework with atomic question-answer pairs and well-defined evaluation metrics. This task focuses on the retrieval of accurate, precise information, without assessing the model’s reasoning or commonsense capabilities. Participants are expected to develop models that can reliably provide factually grounded answers to medical queries, and the competition will reward exact matches, semantic equivalents, and penalize factually incorrect or hallucinated responses. The task prioritizes transparency in model submissions, ensuring reproducibility and integrity.</p>
+            <div class="collapsible"><h2>Organizers</h2><span class="plus-minus">+</span></div>
+                <div class="content"> 
+                    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                        <!-- Organizer 1 -->
+                        <div style="text-align: center;">
+                            <img src="Images/Brandon-headshot-no_background.png" alt="Brandon Colelough" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;">
+                            <h3 style="margin: 10px 0;">Brandon Colelough</h3>
+                            <a href="https://brandoncolelough.com/" style="color: #0071bc; text-decoration: none;">Website</a>
+                        </div>
+                        <!-- Organizer 2 -->
+                        <div style="text-align: center;">
+                            <div style="width: 150px; height: 150px; border-radius: 50%; background-color: #d3d3d3; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-size: 80px; color: white;">N/A</span>
+                            </div>
+                            <h3 style="margin: 10px 0;">Davis Bartels</h3>
+                            <span style="color: #a9a9a9;">No Website</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
-        -->
+        
+        <section>
+            <div class="collapsible" id="references-section">
+                <h2>References</h2><span class="plus-minus">+</span>
+            </div>
+            <div class="content" id="references-content" style="display: none;"> 
+                <ul style="font-size: 16px; line-height: 1.8; margin-left: 20px; list-style: none; padding: 0;">
+                    <li id="ref1">[1] Z. Xu et al., “Codabench: Flexible, easy-to-use, and reproducible meta-benchmark platform,” Patterns, vol. 3, no. 7, pp. 100543-100543, Jul. 2022, doi: <a href="https://doi.org/10.1016/j.patter.2022.100543" style="color: #0071bc; text-decoration: none;">https://doi.org/10.1016/j.patter.2022.100543</a>.</li>
+                    <li id="ref2">[2] C. J. van Rijsbergen. "Information Retrieval." Butterworth-Heinemann, 1979.</li>
+                    <li id="ref3">[3] Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. 2002. Bleu: a Method for Automatic Evaluation of Machine Translation. In Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics, pages 311–318, Philadelphia, Pennsylvania, USA. Association for Computational Linguistics.</li>
+                    <li id="ref4">[4] Chin-Yew Lin. 2004. ROUGE: A Package for Automatic Evaluation of Summaries. In Text Summarization Branches Out, pages 74–81, Barcelona, Spain. Association for Computational Linguistics.</li>
+                    <li id="ref5">[5] Satanjeev Banerjee and Alon Lavie. 2005. METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments. In Proceedings of the ACL Workshop on Intrinsic and Extrinsic Evaluation Measures for Machine Translation and/or Summarization, pages 65–72, Ann Arbor, Michigan. Association for Computational Linguistics.</li>
+                    <li id="ref6">[6] T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi, “BERTScore: Evaluating Text Generation with BERT,” arXiv.org, 2019. <a href="https://arxiv.org/abs/1904.09675" style="color: #0071bc; text-decoration: none;">https://arxiv.org/abs/1904.09675</a>.</li>
+                    <li id="ref7">[7] Ansar Aynetdinov and Alan Akbik. 2024. SemScore: Automated Evaluation of Instruction-Tuned LLMs based on Semantic Textual Similarity. arXiv. doi: <a href="https://doi.org/10.48550/arxiv.2401.17072" style="color: #0071bc; text-decoration: none;">https://doi.org/10.48550/arxiv.2401.17072</a>. URL: <a href="https://arxiv.org/abs/2401.17072" style="color: #0071bc; text-decoration: none;">https://arxiv.org/abs/2401.17072</a>.</li>
+                </ul>
+            </div>
+        </section>
+        
+        
+        
+        
+        
+
     </main>
     <footer>
         <p>&copy; 2025 NIH NLM - ClinIQLink - LLM Lie Detector Task @ BioNLP @ ACL. All rights reserved.</p>
@@ -930,6 +1038,24 @@
 </body>
 
 <script>
+
+    // Function to detect if the platform is mobile
+function isMobilePlatform() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// Hide the timeline-container for mobile platforms
+function handleTimelineVisibility() {
+    const timelineContainer = document.getElementById('timeline');
+    if (isMobilePlatform() && timelineContainer) {
+        timelineContainer.style.display = 'none'; // Hide the timeline
+    }
+}
+
+// Execute the function on page load
+window.onload = handleTimelineVisibility;
+
+
     // Define start and end dates for the timeline
     const timelineStart = new Date('2024-12-31');
     const timelineEnd = new Date('2025-08-05');
@@ -960,7 +1086,7 @@
 
     // Define event data with IDs and dates
     const events = [
-        { id: 'event-first_call', date: new Date('2025-01-17') },
+        { id: 'event-first_call', date: new Date('2025-01-21') },
         { id: 'event-release', date: new Date('2025-02-15') },
         { id: 'event-system_sub', date: new Date('2025-04-15') },
         { id: 'event-feedback', date: new Date('2025-04-25') },
@@ -1114,6 +1240,47 @@
         });
     });
 
+    // Function to open the References section and scroll to a specific reference
+    function openReferencesAndScroll(refId) {
+        // Get the references collapsible and content
+        const referencesContent = document.getElementById('references-content');
+        const collapsible = document.getElementById('references-section');
+
+        // Check if the References collapsible container exists
+        if (!referencesContent || !collapsible) {
+            console.error('References section or content is missing in the DOM.');
+            return; // Stop execution if the elements don't exist
+        }
+
+        // Open the collapsible container if it's closed
+        if (referencesContent.style.display === 'none' || !referencesContent.style.display) {
+            referencesContent.style.display = 'block'; // Show the references content
+            collapsible.classList.add('active'); // Mark the collapsible as active
+
+            // Update the plus-minus toggle symbol
+            const plusMinus = collapsible.querySelector('.plus-minus');
+            if (plusMinus) {
+                plusMinus.textContent = '−'; // Update to a minus sign
+            }
+        }
+
+        // Scroll to the specific reference
+        const reference = document.getElementById(refId);
+        if (reference) {
+            reference.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            console.error(`Reference with ID "${refId}" not found.`);
+        }
+    }
+
+    // Add click event listeners to all links referencing the References section
+    document.querySelectorAll('a[href^="#ref"]').forEach((link) => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the default anchor link behavior
+            const refId = link.getAttribute('href').substring(1); // Extract the reference ID (e.g., 'ref1')
+            openReferencesAndScroll(refId); // Open and scroll to the reference
+        });
+    });
 
 </script>
 
