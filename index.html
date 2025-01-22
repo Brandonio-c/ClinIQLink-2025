@@ -271,6 +271,9 @@
         <a href="https://www.codabench.org/competitions/5117/" target="_blank">
             <button>View Challenge on Codalab</button>
         </a>
+        <a href="javascript:void(0);" id="expand-collapse-link">
+            <button id="expand-collapse-btn">Expand All</button>
+        </a>
     </header>
     <main>
         <section>
@@ -1291,6 +1294,39 @@ window.onload = handleTimelineVisibility;
             openReferencesAndScroll(refId); // Open and scroll to the reference
         });
     });
+
+    // Function to toggle all collapsible sections
+    function toggleAllSections() {
+        const button = document.getElementById('expand-collapse-btn');
+        const collapsibles = document.querySelectorAll('.collapsible');
+        const contents = document.querySelectorAll('.content');
+
+        if (button.textContent === "Expand All") {
+            contents.forEach(content => content.style.display = "block");
+            collapsibles.forEach(collapsible => {
+                collapsible.classList.add("active");
+                const plusMinus = collapsible.querySelector(".plus-minus");
+                if (plusMinus) {
+                    plusMinus.textContent = "−";
+                }
+            });
+            button.textContent = "Collapse All";
+        } else {
+            contents.forEach(content => content.style.display = "none");
+            collapsibles.forEach(collapsible => {
+                collapsible.classList.remove("active");
+                const plusMinus = collapsible.querySelector(".plus-minus");
+                if (plusMinus) {
+                    plusMinus.textContent = "+";
+                }
+            });
+            button.textContent = "Expand All";
+        }
+    }
+
+    // Add event listener to the Expand/Collapse button
+    document.getElementById('expand-collapse-link').addEventListener('click', toggleAllSections);
+
 
 </script>
 
