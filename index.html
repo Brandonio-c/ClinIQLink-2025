@@ -269,11 +269,14 @@
         <div style="text-align: center;">
             <h1 style="margin: 20px;">ClinIQLink 2025 - LLM Lie Detector Test</h1>
             <p style="margin: 20px 0;">Evaluating Internal Model Knowledge Retrieval and Hallucinations</p>
-            <a href="https://www.codabench.org/competitions/5117/" target="_blank">
-                <button>View Challenge on CodaBench</button>
-            </a>
             <a href="javascript:void(0);" id="expand-collapse-link">
                 <button id="expand-collapse-btn">Expand All</button>
+            </a>
+            <a href="https://github.com/Brandonio-c/ClinIQLink_Sample-dataset" target="_blank">
+                <button>View Sample Dataset on GitHub</button>
+            </a>
+            <a href="https://www.codabench.org/competitions/5117/" target="_blank">
+                <button>View Challenge on CodaBench</button>
             </a>
         </div>
         <img src="Images/ClinIQLink-logo.svg" alt="ClinIQLink Logo" style="height: 100%; max-height: 160px;">
@@ -363,18 +366,51 @@
 
                     <div class="collapsible">Short Answer <span class="plus-minus">+</span></div>
                     <div class="content">
+                        <p><strong>Format:</strong><br><em>Question is posed to generative model, model prediction is compared to ground truth answer</em></p>
                         <p><strong>Question:</strong><br><em>"What is a Laparoscopy?"</em></p>
                         <p><strong>Answer:</strong><br><em>"A minimally invasive surgical procedure that uses a camera to view the inside of the abdomen."</em></p>
                     </div>
 
                     <br>
 
+                    <div class="collapsible">Short Inverse <span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Format:</strong><br><em>Question and incorrect answer are posed to generative model, model prediction for incorrect answer explanation is compared to ground truth</em></p>
+                        <p><strong>Question:</strong><br><em>"What is the primary area covered by the dermatome associated with the second thoracic spinal nerve?"</em></p>
+                        <p><strong>False Answer:</strong><br><em>"The highest thoracic dermatome on the posterior back is primarily T2."</em></p>
+                        <p><strong>Incorrect Answer Explanation:</strong><br><em>"The statement incorrectly places the primary coverage of the T2 dermatome on the posterior back instead of mentioning its extension into the upper limb and presence on the anterior chest wall, indicating confusion between anatomical locations described in the passage."</em></p>
+                    </div>
+
+                    <br>
+
                     <div class="collapsible"><strong>Multi-Hop Knowledge-Retrieval Answers</strong><span class="plus-minus">+</span></div>
                     <div class="content">
+                        <p><strong>Format:</strong><br><em>Question is posed to generative model, model prediction (both answer and reasoning) are compared to ground truth answer</em></p>
                         <p><strong>Question:</strong><br><em>"A patient presents with fatigue and shortness of breath. Lab results show low hemoglobin levels and high mean corpuscular volume (MCV). Based on these findings, what condition might the patient have, and what deficiency could be contributing to it?"</em></p>
                         <p><strong>Answer:</strong><br><em>"The patient might have megaloblastic anemia caused by a vitamin B12 deficiency."</em></p>
                         <p><strong>Reasoning:</strong><br><em>"Step 1: Fatigue and shortness of breath are symptoms of anemia.<br>Step 2: High MCV indicates macrocytic anemia.<br>Step 3: Macrocytic anemia is commonly caused by vitamin B12 or folate deficiency.<br>Step 4: Conclude megaloblastic anemia due to likely vitamin B12 deficiency."</em></p>
                     </div>
+
+                    <br>
+
+                    <div class="collapsible"><strong>Multi-Hop Inverse Knowledge-Retrieval Answers</strong><span class="plus-minus">+</span></div>
+                    <div class="content">
+                        <p><strong>Format:</strong><br><em>Question and incorrect answer with incorrect reasoning are posed to generative model, model prediction for determinaiton of the incorrect reasoning step is compared to ground truth</em></p>
+                        <p><strong>Question:</strong><br><em>"How do sympathetic nervous system signals destined for the face originate in terms of their path from the central nervous system?"</em></p>
+                        <p><strong>Incorrect Answer:</strong><br><em>"These signals start from spinal nerve levels below T1, specifically originating from L2, before traveling up through the sympathetic trunk to reach facial structures."</em></p>
+                        <p><strong>Reasoning:</strong><br><em>
+                            Step 1: Sympathetic paravertebral trunks extend the entire length of the vertebral column and enable the distribution of visceral motor fibers to peripheral regions.<br>
+                            Step 2: Fibers from different parts of the spine travel upwards or downwards depending on their origin; notably, white rami communicantes, which carry preganglionic fibers away from the spinal cord, are found only with spinal nerves T1 to L2.<br>
+                            <strong>Step 3 (Incorrect Step):</strong> Given that all sympathetics going into the head involve preganglionic fibers emerging from around the lower thoracic segments due to the general principle of nerve signal propagation in the body, we reason that the primary starting points for such signals intended for the face would indeed begin from areas slightly below the commonly acknowledged range of T1-T5, considering the necessity for widespread coverage.<br>
+                            Step 4: Since these signals need to end up in the head after leaving the spinal cord, they follow the pathway described for reaching higher targets, involving ascent through the sympathetic trunk.<br>
+                            Step 5: Ultimately, considering the anatomy and pathways involved, these signals meant for facial structures likely stem initially from the lowest segment capable of contributing to cranial functions, thus indicating origins potentially from L2 given its role in providing broad sympathetic coverage.
+                        </em></p>
+                        <p><strong>Incorrect Reasoning Step:</strong><br><em>
+                            - Step 3 contains the incorrect inference.<br>
+                            - Explanation: This step incorrectly infers that because there's a need for widespread coverage and because some signals go upwards, the primary origin for sympathetic signals to the face would necessarily be from areas slightly below the acknowledged range of T1-T5, suggesting L2 as a potential starting point. However, all sympathetics passing into the head actually have preganglionic fibers that emerge from spinal cord level T1, not from lower levels like L2. This misunderstanding leads to the incorrect conclusion about the origin of sympathetic signals destined for the face.
+                        </em></p>
+                    </div>
+
 
                 </div>
             </div>
@@ -387,7 +423,7 @@
 
             <div class="collapsible"><h2>Evaluation Metrics</h2><span class="plus-minus">+</span></div>
                 <div class="content"> <!--style="display: block;"-->
-                    <p>Our evaluation framework is organized into two primary categories: (1) Closed-ended questions (True/False, lists, and multiple choice) and (2) Open-ended questions (short answer and Multi-Hop Knowledge-Retrieval Answers).</p>
+                    <p>Our evaluation framework is organized into two primary categories: (1) Closed-ended questions (True/False, lists, and multiple choice) and (2) Open-ended questions (short answer, short inverse answer, Multi-Hop and Multi-Hop Inverse).</p>
                     <div class="collapsible-container">
 
                         <div class="collapsible">Closed-ended questions<span class="plus-minus">+</span></div>
