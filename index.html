@@ -453,22 +453,6 @@
                                     \]
                                 </li>
                             </ul>
-                            
-                            <br>
-
-                            <div class="collapsible">True/False Questions<span class="plus-minus">+</span></div>
-                            <div class="content">
-                                <p>
-                                    True/False questions are evaluated by comparing the model’s response to the expected answer, with scoring based on precision, recall, and F1.
-                                </p>
-                                <p><strong>Example:</strong></p>
-                                <ul>
-                                    <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
-                                    <li><strong>Expected Answer:</strong> "False"</li>
-                                    <li><strong>Model Answer:</strong> "True"</li>
-                                    <li><strong>Result:</strong> TP = 0, FP = 0, FN = 1</li>
-                                </ul>
-                            </div>
 
                             <br>
                 
@@ -496,11 +480,27 @@
                             </div>
 
                             <br>
+
+                            <div class="collapsible">True/False Questions<span class="plus-minus">+</span></div>
+                            <div class="content">
+                                <p>
+                                    True/False questions were evaluated using simple accuracy. The model's response was considered correct if it exactly matched the expected answer. Final performance was computed as the average number of correct responses across all True/False questions.
+                                </p>
+                                <p><strong>Example:</strong></p>
+                                <ul>
+                                    <li><strong>Question:</strong> "Antibiotics can treat viral infections?"</li>
+                                    <li><strong>Expected Answer:</strong> "False"</li>
+                                    <li><strong>Model Answer:</strong> "True"</li>
+                                    <li><strong>Result:</strong> Incorrect (0 points for this question)</li>
+                                </ul>
+                            </div>
+
+                            <br>
                 
                             <div class="collapsible">Multiple Choice Questions<span class="plus-minus">+</span></div>
                             <div class="content">
                                 <p>
-                                    Multiple-choice questions are scored by checking if the selected option matches the correct answer. A correct selection is a True Positive (TP), an incorrect selection counts as a False Positive (FP), and a failure to answer or an irrelevant response counts as a False Negative (FN).
+                                    Multiple-choice questions were evaluated using a straightforward accuracy metric. Each response was compared to the expected correct option. The final score was computed as the average number of correctly selected answers across all questions.
                                 </p>
                                 <p><strong>Example:</strong></p>
                                 <ul>
@@ -514,9 +514,10 @@
                                     </ul>
                                     <li><strong>Expected Answer:</strong> "D. High fever"</li>
                                     <li><strong>Model Answer:</strong> "B. Frequent urination"</li>
-                                    <li><strong>Result:</strong> TP = 0, FP = 1, FN = 0</li>
+                                    <li><strong>Result:</strong> Incorrect (0 points for this question)</li>
                                 </ul>
                             </div>
+
 
                             <br>
                 
